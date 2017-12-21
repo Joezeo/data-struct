@@ -73,7 +73,7 @@ Insert the data domain into the new node of the second parameter after the first
 Insert the data domain into the new node of the second parameter before the first parameter node.   
 > 在第一参数结点前插入数据域为第二个参数的新节点。  
   
-[return/返回]()  
+[return/返回](https://github.com/Joezeo/DataStruct#current-data-structure)  
 ---
   
 #### `Stack`  
@@ -121,7 +121,7 @@ Insert element e to the new stack top element, if the stack capacity is full, au
 If the stack is not empty, remove the top element of the stack and return its value.   
 > 若栈不空，则删除栈顶元素，并返回其值。  
   
-[return/返回]()  
+[return/返回](https://github.com/Joezeo/DataStruct#current-data-structure)  
 ---
   
 
