@@ -5,7 +5,7 @@
 [![Travis](https://img.shields.io/badge/Current%20state-building-yellow.svg)]()  
 This is a static lib about data structure by C.Supports generics.  
 > 这是一个关于数据结构的C语言静态链接库，支持泛型。  
-  
+---
 ### `Method of operation:`  
 Use ` visual studio 2017 ` compiled generated `.lib` file.  
 > 用`visual studio 2017`编译后生成.lib文件。  
@@ -18,12 +18,11 @@ Method 1: use absolute/relative path to include header files, using #pragma prec
   
 Method 2: modify the included directory, library directory, and dependency items of the project properties.(Steps to omit)  
 > 方法二：修改项目属性的包含目录，库目录，附加依赖项。(步骤省略)  
-   
+---
 ### `Current data structure:`  
-* [LinkList](https://github.com/Joezeo/DataStruct/blob/master/README.md#linklist)  
+* [LinkList](https://github.com/Joezeo/DataStruct#linklist)  
 * [Stack](https://github.com/Joezeo/DataStruct#stack)  
-  
-  
+---  
 #### `LinkList`  
 **introduce:**  
 The node includes the front/rear node pointer, and the list does not include the empty head node.  
@@ -73,7 +72,9 @@ Insert the data domain into the new node of the second parameter after the first
 11. `Status InsertNodeBefore(PNODE node, void * e);`  
 Insert the data domain into the new node of the second parameter before the first parameter node.   
 > 在第一参数结点前插入数据域为第二个参数的新节点。  
-
+  
+[return/返回]()  
+---
   
 #### `Stack`  
 **introduce:**  
@@ -120,6 +121,8 @@ Insert element e to the new stack top element, if the stack capacity is full, au
 If the stack is not empty, remove the top element of the stack and return its value.   
 > 若栈不空，则删除栈顶元素，并返回其值。  
   
+[return/返回]()  
+---
   
 
 
