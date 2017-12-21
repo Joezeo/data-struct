@@ -14,11 +14,11 @@ Method 1: use absolute/relative path to include header files, using #pragma prec
 `#include "../dtastc.h"`  
 `#pragma comment(lib,"../debug/DataStruct.lib")`  
   
-Method 2: modify the included directory, library directory, and dependency items of the project properties.  
-> 方法二：修改项目属性的包含目录，库目录，附加依赖项。  
+Method 2: modify the included directory, library directory, and dependency items of the project properties.(Steps to omit)  
+> 方法二：修改项目属性的包含目录，库目录，附加依赖项。(步骤省略)  
    
 ### `Current data structure:`  
-* [Stack](https://github.com/Joezeo/DataStruct/new/master?readme=1#stack)  
+* [Stack](https://github.com/Joezeo/DataStruct#stack)  
   
   
 #### `Stack`  
