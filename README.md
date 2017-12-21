@@ -1,5 +1,6 @@
 # DataStruct
 [![Travis](https://img.shields.io/badge/Language-C-lightgrey.svg)]()
+[![Travis](https://img.shields.io/badge/Project%20type-Static%20lib-orange.svg)]()
 [![Travis](https://img.shields.io/travis/rust-lang/rust.svg)]()  
 This is a static lib about data structure by C.Supports generics.  
 > 这是一个关于数据结构的C语言静态链接库，支持泛型。  
