@@ -42,12 +42,118 @@ extern "C" {
 typedef unsigned int UINT;
 typedef int Status;
 
+
+/*
+---------------------------------- LinkList ----------------------------------
+*/
+
+/*
++
+-              结构体定义
++
+*/
 typedef struct {
 
-	void ** base;          // 栈底指针
-	void ** top;           // 栈顶指针
-	UINT stacksize;        // 栈容量
-	UINT cnt;              // 当前栈元素个数
+	void * _data;
+	struct NODE * _next;
+	struct NODE * _pre;
+
+}NODE, * PNODE;
+
+typedef struct {
+
+	PNODE _head;    // 头指针
+	PNODE _tail;    // 尾指针
+	UINT  _cnt;     // 元素个数
+
+}LINKLIST, * PLINKLIST;
+
+/*
++
+-              函数前向声明
++
+*/
+static PNODE
+NewNode(void *);
+// 创建一个新的节点，其数据域为传入的参数的值
+
+
+Status
+FreeNode(PNODE);
+// 释放此节点的内存空间
+
+
+PLINKLIST
+Initlklist();
+// 初始化一个不带头结点的空链表
+
+
+Status
+FreelkList(PLINKLIST);
+// 销毁链表，释放内存空间
+
+
+Status
+ClearlkList(PLINKLIST);
+// 清空链表为空链表
+
+
+Status
+EmptylkList(const PLINKLIST);
+// 判断一个链表是否为空，是则返回TRUE；否则返回FALSE
+
+
+Status
+AddNode(PLINKLIST, void *);
+// 为链表新建一个节点，其数据域为传入的第二个参数的值（默认插入顺序从尾部插入）
+
+
+Status
+RemoveNode(PLINKLIST);
+// 链表删除一个结点。(默认从尾部删除)
+
+
+int
+lkListLength(const PLINKLIST);
+// 返回链表的长度(元素个数)
+
+
+PNODE
+GetNode(const PLINKLIST, void *);
+// 在链表中查找数据域为第二个参数值的节点，并返回其地址,如没找到，返回NULL
+
+
+Status
+InsertNodeAfter(PNODE, void *);
+// 在第一参数结点后插入数据域为第二个参数的新节点
+
+
+Status
+InsertNodeBefore(PNODE, void *);
+// 在第一参数结点前插入数据域为第二个参数的新节点
+/*
+------------------------------------------------------------------------------
+*/
+
+
+
+
+
+/*
+---------------------------------- Stack ----------------------------------
+*/
+
+/*
++
+-              结构体定义
++
+*/
+typedef struct {
+
+	void ** _base;          // 栈底指针
+	void ** _top;           // 栈顶指针
+	UINT _stacksize;        // 栈容量
+	UINT _cnt;              // 当前栈元素个数
 
 }STACK, * PSTACK;
 
@@ -56,33 +162,52 @@ typedef struct {
 -              函数前向声明
 +
 */
-
 PSTACK
 InitStack();
+// 构造一个空栈
+
 
 Status
 DestroyStack(PSTACK);
+// 销毁栈，释放资源
+
 
 Status
 ClearStack(PSTACK);
+// 将栈元素清空，置为空栈
 
 Status
 StackEmpty(const PSTACK);
+// 若栈为空栈，返回TRUE，否则返回FALSE
+
 
 int
 StackLength(const PSTACK);
+// 返回栈元素的个数，即栈的长度
+
 
 void *
 GetTop(const PSTACK);
+// 若栈不空，返回栈顶元素的值；否则返回NULL
+
 
 Status
 Push(PSTACK, void *);
+// 插入元素e为新的栈顶元素
+
 
 void *
 Pop(PSTACK);
+// 若栈不空，则删除栈顶元素，并返回其值
+
 
 static Status
 AddStackSize(PSTACK);
+// 增加栈的容量
+
+/*
+---------------------------------------------------------------------------
+*/
 
 #ifdef __cplusplus
 }
