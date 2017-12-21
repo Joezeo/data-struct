@@ -4,7 +4,7 @@
 +
 -             创建时间：2017.12.21 / 18：23
 +
--             修改时间：2017.12.21 / 18：23
+-             修改时间：2017.12.21 / 22：38
 +
 -             文件名称：dtastc.c
 +
@@ -46,6 +46,19 @@ Status
 FreeNode(PNODE node) {
 
 	assert(node != NULL);
+
+	if (node->_pre != NULL) {
+
+		PNODE tmp = node->_pre;
+		tmp->_next = node->_next;
+
+	}
+	if (node->_next != NULL) {
+
+		PNODE tmp = node->_next;
+		tmp->_pre = node->_pre;
+
+	}
 
 	free(node);
 	node = NULL;
