@@ -20,7 +20,7 @@ Method 2: modify the included directory, library directory, and dependency items
 > 方法二：修改项目属性的包含目录，库目录，附加依赖项。(步骤省略)  
 ---
 ### `Current data structure:`  
-* [List(SqList)]()
+* [List(SqList)](https://github.com/Joezeo/DataStruct#list)
 * [LinkList](https://github.com/Joezeo/DataStruct#linklist)  
 * [Stack](https://github.com/Joezeo/DataStruct#stack)  
 ---    
