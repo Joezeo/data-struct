@@ -4,11 +4,11 @@
 +
 -             创建时间：2017.12.21 / 18：23
 +
--             修改时间：2017.12.21 / 22：38
+-             修改时间：2017.12.22 / 17：48
 +
 -             文件名称：dtastc.h
 +
--             功能：数据结构库的头文件，包括宏、结构体、的定义，函数前向声明
+-             功能：数据结构库的头文件，包括宏、结构体的定义，函数前向声明
 +
 */
 
@@ -21,12 +21,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define STACKINITSIZE  50
-// 栈初始化时的起始容量
-
-#define STACKINCREMENT 10
-// 栈增加容量
 
 /*
 +
@@ -41,6 +35,90 @@ extern "C" {
 
 typedef unsigned int UINT;
 typedef int Status;
+
+/*
+----------------------------------- SqList -----------------------------------
+*/
+
+#define LISTINITSIZE  50
+// 顺序表初始容量
+
+#define LISTINCREMENT 10
+// 顺序表增加容量
+
+/*
++
+-              结构体定义
++
+*/
+typedef struct {
+
+	void ** _base;    // 线性表基地址
+	UINT _length;     // 线性表长度
+	UINT _listsize;   // 线性表容量
+
+}LIST, * PLIST;
+
+/*
++
+-              函数前向声明
++
+*/
+PLIST
+InitList();
+// 初始化一个线性表
+
+
+Status
+FreeList(PLIST);
+// 销毁一个线性表，释放内存资源
+
+
+Status
+EmptyList(const PLIST);
+// 判断线性表是否为空表。是返回TRUE，否则返回FALSE
+
+
+Status
+ClearList(PLIST);
+// 清空一个线性表，将其置为空表
+
+
+int
+ListLength(const PLIST);
+// 返回线性表长度（数据元素个数）
+
+
+void *
+GetElem(const PLIST, const int);
+// 获取线性表的第i个数据元素,如线性表为空表返回NULL，,i越界返回NULL
+
+
+Status
+Located(const PLIST, const void *);
+// 判断线性表中是否存在值为第二个参数的数据元素
+
+
+Status
+ListInsert(PLIST, const int, const void *);
+// 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值）
+
+
+Status
+ListRemove(PLIST, const int);
+// 线性表删除数据元素（删除位置为第二个参数）
+
+
+static Status
+AddlistSize(PLIST);
+// 静态函数，增加线性表的容量
+
+/*
+------------------------------------------------------------------------------
+*/
+
+
+
 
 
 /*
@@ -131,6 +209,7 @@ InsertNodeAfter(PNODE, void *);
 Status
 InsertNodeBefore(PNODE, void *);
 // 在第一参数结点前插入数据域为第二个参数的新节点
+
 /*
 ------------------------------------------------------------------------------
 */
@@ -140,8 +219,14 @@ InsertNodeBefore(PNODE, void *);
 
 
 /*
----------------------------------- Stack ----------------------------------
+----------------------------------- Stack -----------------------------------
 */
+
+#define STACKINITSIZE  50
+// 栈初始化时的起始容量
+
+#define STACKINCREMENT 10
+// 栈增加容量
 
 /*
 +
@@ -206,7 +291,7 @@ AddStackSize(PSTACK);
 // 增加栈的容量
 
 /*
----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 */
 
 #ifdef __cplusplus

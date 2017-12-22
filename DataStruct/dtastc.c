@@ -4,14 +4,299 @@
 +
 -             创建时间：2017.12.21 / 18：23
 +
--             修改时间：2017.12.21 / 22：38
+-             修改时间：2017.12.21 / 17：48
 +
 -             文件名称：dtastc.c
 +
 -             功能：数据结构库的函数定义
 +
 */
+
 #include "dtastc.h"
+
+/*
+----------------------------------- SqList -----------------------------------
+*/
+
+/*
++
+-               函数定义
++
+*/
+PLIST
+InitList() {
+
+	PLIST _list = (PLIST)malloc(sizeof(LIST));
+	if (!_list) {
+
+		exit(OVERFLOW);
+
+	}
+
+	_list->_base = (void **)malloc(LISTINITSIZE * sizeof(void *));
+	if (!(_list->_base)) {
+
+		exit(OVERFLOW);
+
+	}
+
+	_list->_length = 0;
+	_list->_listsize = LISTINITSIZE;
+
+	return _list;
+
+}
+// 初始化一个线性表
+
+
+Status
+FreeList(PLIST plist) {
+
+	assert(plist != NULL);
+
+	free(plist->_base);
+	plist->_base = NULL;
+
+	free(plist);
+	plist = NULL;
+
+	return OK;
+
+}
+// 销毁一个线性表，释放内存资源
+
+
+Status
+EmptyList(const PLIST plist) {
+
+	assert(plist != NULL);
+
+	if (plist->_length == 0) {
+
+		return TRUE;
+
+	}
+
+	return FALSE;
+
+}
+// 判断线性表是否为空表。是返回TRUE，否则返回FALSE
+
+
+Status
+ClearList(PLIST plist) {
+
+	assert(plist != NULL);
+
+	if (EmptyList(plist)) {
+
+		return OK;
+
+	}
+
+	for (int i = 0; i < plist->_length; i++) {
+
+		*(plist->_base + i) = 0;
+
+	}
+
+	plist->_length = 0;
+
+	return OK;
+
+}
+// 清空一个线性表，将其置为空表
+
+
+int
+ListLength(const PLIST plist) {
+
+	assert(plist != NULL);
+
+	return plist->_length;
+
+}
+// 返回线性表长度（数据元素个数）
+
+
+void *
+GetElem(const PLIST plist, const int  i) {
+
+	assert(plist != NULL);
+
+	if (EmptyList(plist)) {
+
+		return NULL;
+
+	}
+
+	if (i > plist->_length || i <= 0) {
+
+		return NULL;
+
+	}
+
+	return *(plist->_base + i - 1);
+
+}
+// 获取线性表的第i个数据元素,如线性表为空表返回NULL,i越界返回NULL
+
+
+Status
+Located(const PLIST plist, const void * e) {
+
+	assert(plist != NULL);
+	assert(e != NULL);
+
+	if (EmptyList(plist)) {
+
+		return FALSE;
+
+	}
+
+	for (int i = 0; i < plist->_length; i++) {
+
+		if (*(plist->_base + i) == e) {
+
+			return TRUE;
+
+		}
+
+	}
+
+	return FALSE;
+
+}
+// 判断线性表中是否存在值为第二个参数的数据元素
+
+
+Status
+ListInsert(PLIST plist, const int i, const void * e) {
+
+	assert(plist != NULL);
+	assert(e != NULL);
+
+	if (i <= 0 || i > plist->_length + 1) {
+
+		return ERROR;
+
+	}
+
+	if (plist->_length == plist->_listsize) {
+
+		AddlistSize(plist);
+
+	}
+
+	if(EmptyList(plist)){
+	
+		*(plist->_base) = e;
+
+		goto fend;
+	
+	}
+	else if (i == plist->_length + 1) {
+
+		*(plist->_base + i - 1) = e;
+
+		goto fend;
+
+	}
+	else {
+
+		for (int j = plist->_length; j >= i; j--) {
+
+			*(plist->_base + j) = *(plist->_base + j - 1);
+
+		}
+
+		*(plist->_base + i - 1) = e;
+
+		goto fend;
+
+	}
+
+fend:
+	plist->_length++;
+	return OK;
+
+}
+// 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值）
+
+
+Status
+ListRemove(PLIST plist, const int i) {
+
+	assert(plist != NULL);
+
+	if (i <= 0 || i > plist->_length) {
+
+		return ERROR;
+
+	}
+
+	if (EmptyList(plist)) {
+
+		return ERROR;
+
+	}
+
+	if (i == plist->_length) {
+
+		*(plist->_base + i - 1) = 0;
+
+		goto fend;
+
+	}
+	else {
+
+		for (int j = i - 1; j < plist->_length - 1; j++) {
+
+			*(plist->_base + j) = *(plist->_base + j + 1);
+
+			goto fend;
+
+		}
+
+	}
+
+fend:
+	plist->_length--;
+	return OK;
+
+}
+// 线性表删除数据元素（删除位置为第二个参数）
+
+
+static Status
+AddlistSize(PLIST plist) {
+
+	assert(plist != NULL);
+
+	void ** add = (void **)realloc(plist->_base,
+		(plist->_listsize + LISTINCREMENT) * sizeof(void *));
+
+	if (!add) {
+
+		exit(OVERFLOW);
+
+	}
+
+	plist->_base = add;
+	plist->_listsize += LISTINCREMENT;
+
+	return OK;
+
+}
+// 静态函数，增加线性表的容量
+
+/*
+------------------------------------------------------------------------------
+*/
+
+
+
+
 
 /*
 ---------------------------------- LinkList ----------------------------------
@@ -328,7 +613,7 @@ InsertNodeBefore(PNODE node, void * e) {
 
 
 /*
----------------------------------- Stack ----------------------------------
+----------------------------------- Stack -----------------------------------
 */
 
 /*
@@ -502,5 +787,5 @@ AddStackSize(PSTACK sqs) {
 // 增加栈的容量
 
 /*
----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 */
