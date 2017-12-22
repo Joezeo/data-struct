@@ -124,8 +124,8 @@ Insert the data domain into the new node of the second parameter before the firs
   
 #### `Stack`  
 **introduce:**  
-Use sequential tables as the basis of the list.  
-> 使用顺序表作为链表的基础。  
+Use sequential tables as the basis of the stack.  
+> 使用顺序表作为栈的基础。  
   
 **functions:**  
 1. `PSTACK InitStack();`  
