@@ -20,9 +20,55 @@ Method 2: modify the included directory, library directory, and dependency items
 > 方法二：修改项目属性的包含目录，库目录，附加依赖项。(步骤省略)  
 ---
 ### `Current data structure:`  
+* [List(SqList)]()
 * [LinkList](https://github.com/Joezeo/DataStruct#linklist)  
 * [Stack](https://github.com/Joezeo/DataStruct#stack)  
----  
+---    
+#### `List`   
+**introduce:**  
+Realize the basic function of the SqList, which counts the linear table from 1,and automatic expansion capacity.   
+> 实现线性表基本功能，此线性表从1开始计数，自动扩充容量。  
+  
+**functions:**  
+1. `PLIST InitList();`  
+Initialize a SqList.  
+> 初始化一个线性表。 
+  
+2. `Status FreeList(PLIST plist);`  
+Destroy a SqList and release memory resources.  
+> 销毁一个线性表，释放内存资源。   
+
+3. `Status EmptyList(const PLIST plist);`  
+Determine whether a SqList is an empty table.Returns TRUE, or FALSE.  
+> 判断线性表是否为空表。是返回TRUE，否则返回FALSE。  
+  
+4. `Status ClearList(PLIST plist);`  
+Empty a SqList and set it to an empty list.  
+> 清空一个线性表，将其置为空表。  
+  
+5. `int ListLength(const PLIST plist);`  
+Returns the SqList length (the number of data elements).  
+> 返回线性表长度（数据元素个数）。  
+  
+6. `void * GetElem(const PLIST plist, const int  i);`  
+Gets the ith data element of the Sqlist, such as the SqList returns NULL for the empty table, and i transboundary returns NULL.   
+> 获取线性表的第i个数据元素,如线性表为空表返回NULL,i越界返回NULL。  
+  
+7. `Status Located(const PLIST plist, const void * e);`  
+Determines whether there is a data element with a value of the second parameter in the SqList.  
+>  判断线性表中是否存在值为第二个参数的数据元素。  
+  
+8. `Status ListInsert(PLIST plist, const int i, const void * e);`  
+The SqList inserts the data element (insert the element at the second parameter position, and the value is the value of the third parameter).  
+> 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值）。  
+  
+9. `Status ListRemove(PLIST plist, const int i);`  
+The SqList removes the data element (the delete position is the second parameter).   
+> 线性表删除数据元素（删除位置为第二个参数）。  
+  
+[return/返回](https://github.com/Joezeo/DataStruct#current-data-structure)   
+---
+
 #### `LinkList`  
 **introduce:**  
 The node includes the front/rear node pointer, and the list does not include the empty head node.  
