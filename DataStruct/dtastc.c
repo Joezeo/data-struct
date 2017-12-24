@@ -4,7 +4,7 @@
 +
 -             创建时间：2017.12.21 / 18：23
 +
--             修改时间：2017.12.21 / 17：48
+-             修改时间：2017.12.24 / 17：25
 +
 -             文件名称：dtastc.c
 +
@@ -146,7 +146,6 @@ Status
 Located(const PLIST plist, const void * e) {
 
 	assert(plist != NULL);
-	assert(e != NULL);
 
 	if (EmptyList(plist)) {
 
@@ -174,7 +173,6 @@ Status
 ListInsert(PLIST plist, const int i, const void * e) {
 
 	assert(plist != NULL);
-	assert(e != NULL);
 
 	if (i <= 0 || i > plist->_length + 1) {
 
@@ -461,7 +459,6 @@ Status
 AddNode(PLINKLIST lklist, void * e) {
 
 	assert(lklist != NULL);
-	assert(e != NULL);
 
 	PNODE newnode = NewNode(e);
 
@@ -530,7 +527,6 @@ PNODE
 GetNode(const PLINKLIST lklist, void * e) {
 
 	assert(lklist != NULL);
-	assert(e != NULL);
 
 	if (EmptylkList(lklist)) {
 
@@ -566,7 +562,6 @@ Status
 InsertNodeAfter(PNODE node, void * e) {
 
 	assert(node != NULL);
-	assert(e != NULL);
 
 	PNODE tmp = node->_next;
 	PNODE newnode = NewNode(e);
@@ -588,7 +583,6 @@ Status
 InsertNodeBefore(PNODE node, void * e) {
 
 	assert(node != NULL);
-	assert(e != NULL);
 
 	PNODE tmp = node->_pre;
 	PNODE newnode = NewNode(e);
@@ -727,8 +721,6 @@ Push(PSTACK sqs, void * e) {
 
 	assert(sqs != NULL);
 
-	assert(sqs != NULL);
-
 	if (sqs->_cnt == sqs->_stacksize) {
 
 		AddStackSize(sqs);
@@ -736,6 +728,7 @@ Push(PSTACK sqs, void * e) {
 	}
 
 	*(sqs->_top) = e;
+	sqs->_top++;
 	sqs->_cnt++;
 
 	return OK;
@@ -758,7 +751,7 @@ Pop(PSTACK sqs) {
 	sqs->_top--;
 	sqs->_cnt--;
 
-	return *(sqs->_top + 1);
+	return *(sqs->_top);
 
 }
 // 若栈不空，则删除栈顶元素，并返回其值
