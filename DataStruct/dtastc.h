@@ -101,7 +101,7 @@ Located(const PLIST, const void *);
 
 
 Status
-ListInsert(PLIST, const int, const void *);
+ListInsert(PLIST, const int, const void *, const int);
 // 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值）
 
 
@@ -153,7 +153,7 @@ typedef struct {
 +
 */
 static PNODE
-NewNode(void *);
+NewNode(void *, const int);
 // 创建一个新的节点，其数据域为传入的参数的值
 
 
@@ -183,7 +183,7 @@ EmptylkList(const PLINKLIST);
 
 
 Status
-AddNode(PLINKLIST, void *);
+AddNode(PLINKLIST, void *, const int);
 // 为链表新建一个节点，其数据域为传入的第二个参数的值（默认插入顺序从尾部插入）
 
 
@@ -203,12 +203,12 @@ GetNode(const PLINKLIST, void *);
 
 
 Status
-InsertNodeAfter(PNODE, void *);
+InsertNodeAfter(PNODE, void *, const int);
 // 在第一参数结点后插入数据域为第二个参数的新节点
 
 
 Status
-InsertNodeBefore(PNODE, void *);
+InsertNodeBefore(PNODE, void *, const int);
 // 在第一参数结点前插入数据域为第二个参数的新节点
 
 /*
@@ -278,12 +278,12 @@ GetTop(const PSTACK);
 
 
 Status
-Push(PSTACK, void *);
+Push(PSTACK, void *, const int);
 // 插入元素e为新的栈顶元素
 
 
-void *
-Pop(PSTACK);
+Status
+Pop(PSTACK, void *, const int);
 // 若栈不空，则删除栈顶元素，并返回其值
 
 

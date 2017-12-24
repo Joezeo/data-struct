@@ -170,7 +170,7 @@ Located(const PLIST plist, const void * e) {
 
 
 Status
-ListInsert(PLIST plist, const int i, const void * e) {
+ListInsert(PLIST plist, const int i, const void * e, const int _size) {
 
 	assert(plist != NULL);
 
@@ -187,15 +187,15 @@ ListInsert(PLIST plist, const int i, const void * e) {
 	}
 
 	if(EmptyList(plist)){
-	
-		*(plist->_base) = e;
+
+		memcpy(plist->_base, e, _size);
 
 		goto fend;
 	
 	}
 	else if (i == plist->_length + 1) {
 
-		*(plist->_base + i - 1) = e;
+		memcpy(plist->_base + i - 1, e, _size);
 
 		goto fend;
 
@@ -204,11 +204,11 @@ ListInsert(PLIST plist, const int i, const void * e) {
 
 		for (int j = plist->_length; j >= i; j--) {
 
-			*(plist->_base + j) = *(plist->_base + j - 1);
+			memcpy(plist->_base + j, plist->_base + j - 1, _size);
 
 		}
 
-		*(plist->_base + i - 1) = e;
+		memcpy(plist->_base + i - 1, e, _size);
 
 		goto fend;
 
@@ -306,7 +306,7 @@ AddlistSize(PLIST plist) {
 +
 */
 static PNODE
-NewNode(void * e) {
+NewNode(void * e, const int _size) {
 
 	PNODE newnode = (PNODE)malloc(sizeof(NODE));
 	if (!newnode) {
@@ -315,7 +315,7 @@ NewNode(void * e) {
 
 	}
 
-	newnode->_data = e;
+	memcpy(newnode->_data, e, _size);
 	newnode->_next = NULL;
 	newnode->_pre = NULL;
 
@@ -456,11 +456,11 @@ EmptylkList(const PLINKLIST lklist) {
 
 
 Status
-AddNode(PLINKLIST lklist, void * e) {
+AddNode(PLINKLIST lklist, void * e, const int _size) {
 
 	assert(lklist != NULL);
 
-	PNODE newnode = NewNode(e);
+	PNODE newnode = NewNode(e, _size);
 
 	if (EmptylkList(lklist)) {
 
@@ -559,12 +559,12 @@ GetNode(const PLINKLIST lklist, void * e) {
 
 
 Status
-InsertNodeAfter(PNODE node, void * e) {
+InsertNodeAfter(PNODE node, void * e, const int _size) {
 
 	assert(node != NULL);
 
 	PNODE tmp = node->_next;
-	PNODE newnode = NewNode(e);
+	PNODE newnode = NewNode(e, _size);
 
 	newnode->_next = tmp;
 	newnode->_pre = node;
@@ -580,12 +580,12 @@ InsertNodeAfter(PNODE node, void * e) {
 
 
 Status
-InsertNodeBefore(PNODE node, void * e) {
+InsertNodeBefore(PNODE node, void * e, const int _size) {
 
 	assert(node != NULL);
 
 	PNODE tmp = node->_pre;
-	PNODE newnode = NewNode(e);
+	PNODE newnode = NewNode(e, _size);
 
 	newnode->_pre = tmp;
 	newnode->_next = node;
@@ -717,7 +717,7 @@ GetTop(const PSTACK sqs) {
 
 
 Status
-Push(PSTACK sqs, void * e) {
+Push(PSTACK sqs, void * e, const int _size) {
 
 	assert(sqs != NULL);
 
@@ -727,7 +727,8 @@ Push(PSTACK sqs, void * e) {
 
 	}
 
-	*(sqs->_top) = e;
+	memcpy(sqs->_top, e, _size);
+
 	sqs->_top++;
 	sqs->_cnt++;
 
@@ -737,21 +738,23 @@ Push(PSTACK sqs, void * e) {
 // 插入元素e为新的栈顶元素
 
 
-void *
-Pop(PSTACK sqs) {
+Status
+Pop(PSTACK sqs, void * e, const int _size) {
 
 	assert(sqs != NULL);
 
 	if (StackEmpty(sqs)) {
 
-		return NULL;
+		return ERROR;
 
 	}
 
 	sqs->_top--;
 	sqs->_cnt--;
 
-	return *(sqs->_top);
+	memcpy(e, sqs->_top, _size);
+
+	return OK;
 
 }
 // 若栈不空，则删除栈顶元素，并返回其值
