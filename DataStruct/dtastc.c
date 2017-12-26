@@ -4,7 +4,7 @@
 +
 -             创建时间：2017.12.21 / 18：23
 +
--             修改时间：2017.12.24 / 17：25
+-             修改时间：2017.12.26 / 21：03
 +
 -             文件名称：dtastc.c
 +
@@ -94,7 +94,7 @@ ClearList(PLIST plist) {
 
 	}
 
-	for (int i = 0; i < plist->_length; i++) {
+	for (UINT i = 0; i < plist->_length; i++) {
 
 		*(plist->_base + i) = 0;
 
@@ -120,7 +120,7 @@ ListLength(const PLIST plist) {
 
 
 void *
-GetElem(const PLIST plist, const int  i) {
+GetElem(const PLIST plist, const UINT i) {
 
 	assert(plist != NULL);
 
@@ -153,7 +153,7 @@ Located(const PLIST plist, const void * e) {
 
 	}
 
-	for (int i = 0; i < plist->_length; i++) {
+	for (UINT i = 0; i < plist->_length; i++) {
 
 		if (*(plist->_base + i) == e) {
 
@@ -170,7 +170,7 @@ Located(const PLIST plist, const void * e) {
 
 
 Status
-ListInsert(PLIST plist, const int i, const void * e, const int _size) {
+ListInsert(PLIST plist, const UINT i, const void * e, const int _size) {
 
 	assert(plist != NULL);
 
@@ -202,7 +202,7 @@ ListInsert(PLIST plist, const int i, const void * e, const int _size) {
 	}
 	else {
 
-		for (int j = plist->_length; j >= i; j--) {
+		for (UINT j = plist->_length; j >= i; j--) {
 
 			memcpy(plist->_base + j, plist->_base + j - 1, _size);
 
@@ -223,7 +223,7 @@ fend:
 
 
 Status
-ListRemove(PLIST plist, const int i) {
+ListRemove(PLIST plist, const UINT i) {
 
 	assert(plist != NULL);
 
@@ -248,7 +248,7 @@ ListRemove(PLIST plist, const int i) {
 	}
 	else {
 
-		for (int j = i - 1; j < plist->_length - 1; j++) {
+		for (UINT j = i - 1; j < plist->_length - 1; j++) {
 
 			*(plist->_base + j) = *(plist->_base + j + 1);
 

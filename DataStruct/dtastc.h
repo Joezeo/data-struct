@@ -4,7 +4,7 @@
 +
 -             创建时间：2017.12.21 / 18：23
 +
--             修改时间：2017.12.24 / 17：33
+-             修改时间：2017.12.26 / 21：02
 +
 -             文件名称：dtastc.h
 +
@@ -91,7 +91,7 @@ ListLength(const PLIST);
 
 
 void *
-GetElem(const PLIST, const int);
+GetElem(const PLIST, const UINT);
 // 获取线性表的第i个数据元素,如线性表为空表返回NULL，,i越界返回NULL
 
 
@@ -101,12 +101,12 @@ Located(const PLIST, const void *);
 
 
 Status
-ListInsert(PLIST, const int, const void *, const int);
+ListInsert(PLIST, const UINT, const void *, const int);
 // 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值）
 
 
 Status
-ListRemove(PLIST, const int);
+ListRemove(PLIST, const UINT);
 // 线性表删除数据元素（删除位置为第二个参数）
 
 
@@ -131,7 +131,7 @@ AddlistSize(PLIST);
 -              结构体定义
 +
 */
-typedef struct {
+typedef struct NODE {
 
 	void * _data;
 	struct NODE * _next;
