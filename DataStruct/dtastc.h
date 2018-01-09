@@ -272,8 +272,8 @@ StackLength(const PSTACK);
 // 返回栈元素的个数，即栈的长度
 
 
-void *
-GetTop(const PSTACK);
+Status
+GetTop(const PSTACK, void *, const int);
 // 若栈不空，返回栈顶元素的值；否则返回NULL
 
 

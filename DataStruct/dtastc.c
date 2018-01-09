@@ -699,18 +699,20 @@ StackLength(const PSTACK sqs) {
 // 返回栈元素的个数，即栈的长度
 
 
-void *
-GetTop(const PSTACK sqs) {
+Status
+GetTop(const PSTACK sqs, void * e, const int _size) {
 
 	assert(sqs != NULL);
 
 	if (StackEmpty(sqs)) {
 
-		return NULL;
+		return ERROR;
 
 	}
 
-	return *(sqs->_top - 1);
+	memcpy(e, sqs->_top - 1, _size);
+
+	return OK;
 
 }
 // 若栈不空，返回栈顶元素的值；否则返回NULL
