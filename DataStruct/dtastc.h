@@ -102,7 +102,7 @@ Located(const PLIST, const void *);
 
 Status
 ListInsert(PLIST, const UINT, const void *, const int);
-// 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值）
+// 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值，第四个参数为数据元素的大小）
 
 
 Status
@@ -184,7 +184,7 @@ EmptylkList(const PLINKLIST);
 
 Status
 AddNode(PLINKLIST, void *, const int);
-// 为链表新建一个节点，其数据域为传入的第二个参数的值（默认插入顺序从尾部插入）
+// 为链表新建一个节点，其数据域为传入的第二个参数的值（默认插入顺序从尾部插入），第三个参数为数据元素的大小
 
 
 Status

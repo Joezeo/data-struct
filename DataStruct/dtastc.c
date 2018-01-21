@@ -219,7 +219,7 @@ fend:
 	return OK;
 
 }
-// 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值）
+// 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值，第四个参数为数据元素的大小）
 
 
 Status
@@ -483,7 +483,7 @@ AddNode(PLINKLIST lklist, void * e, const int _size) {
 	return OK;
 
 }
-// 为链表新建一个节点，其数据域为传入的第二个参数的值（默认插入顺序从尾部插入）
+// 为链表新建一个节点，其数据域为传入的第二个参数的值（默认插入顺序从尾部插入），第三个参数为数据元素的大小
 
 
 Status
@@ -576,7 +576,7 @@ InsertNodeAfter(PNODE node, void * e, const int _size) {
 
 
 }
-// 在第一参数结点后插入数据域为第二个参数的新节点
+// 在第一参数结点后插入数据域为第二个参数的新节点， 第三个参数为数据元素的大小
 
 
 Status
@@ -596,7 +596,7 @@ InsertNodeBefore(PNODE node, void * e, const int _size) {
 	return OK;
 
 }
-// 在第一参数结点前插入数据域为第二个参数的新节点
+// 在第一参数结点前插入数据域为第二个参数的新节点，第三个参数为数据元素的大小
 
 /*
 ------------------------------------------------------------------------------
@@ -715,7 +715,7 @@ GetTop(const PSTACK sqs, void * e, const int _size) {
 	return OK;
 
 }
-// 若栈不空，返回栈顶元素的值；否则返回NULL
+// 若栈不空，返回栈顶元素的值；否则返回NULL。第二个参数为数据元素的大小
 
 
 Status
@@ -737,7 +737,7 @@ Push(PSTACK sqs, void * e, const int _size) {
 	return OK;
 
 }
-// 插入元素e为新的栈顶元素
+// 插入元素e为新的栈顶元素，第三个参数是数据元素的大小
 
 
 Status
@@ -759,7 +759,7 @@ Pop(PSTACK sqs, void * e, const int _size) {
 	return OK;
 
 }
-// 若栈不空，则删除栈顶元素，并返回其值
+// 若栈不空，则删除栈顶元素，并返回其值，第三个参数是数据元素的大小
 
 
 static Status
