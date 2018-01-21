@@ -58,9 +58,9 @@ Gets the ith data element of the Sqlist, such as the SqList returns NULL for the
 Determines whether there is a data element with a value of the second parameter in the SqList.  
 >  判断线性表中是否存在值为第二个参数的数据元素。  
   
-8. `Status ListInsert(PLIST plist, const int i, const void * e);`  
-The SqList inserts the data element (insert the element at the second parameter position, and the value is the value of the third parameter).  
-> 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值）。  
+8. `Status ListInsert(PLIST plist, const int i, const void * e, const int _size);`  
+The SqList inserts the data element (insert the element at the second parameter position, and the value is the value of the third parameter,the fourth parameter is the size of the data element.).  
+> 线性表插入数据元素（在第二个参数位置插入元素，值为第三个参数的值，第四个参数为数据元素的大小）。  
   
 9. `Status ListRemove(PLIST plist, const int i);`  
 The SqList removes the data element (the delete position is the second parameter).   
@@ -95,9 +95,9 @@ Empty lists for empty linked lists.
 To determine if a list is empty, it returns TRUE;Otherwise return FALSE.  
 > 判断一个链表是否为空，是则返回TRUE；否则返回FALSE。  
   
-6. `Status AddNode(PLINKLIST lklist, void * e);`  
-To create a new node for the list, its data domain is the value of the second parameter passed in (the default insertion sequence is inserted from the tail).   
-> 为链表新建一个节点，其数据域为传入的第二个参数的值（默认插入顺序从尾部插入）。   
+6. `Status AddNode(PLINKLIST lklist, void * e, const int _size);`  
+To create a new node for the list, its data domain is the value of the second parameter passed in (the default insertion sequence is inserted from the tail), the third parameter is the size of the data element..   
+> 为链表新建一个节点，其数据域为传入的第二个参数的值（默认插入顺序从尾部插入）,第三个参数为数据元素的大小。   
    
 7. `Status RemoveNode(PLINKLIST lklist);`   
 The linked list removes one node.(by default delete from the tail).  
@@ -111,13 +111,13 @@ Returns the length of the list (the number of elements).
 Locate the node in the list of data fields as the second parameter value, and return the address, if not found, to return NULL.  
 > 在链表中查找数据域为第二个参数值的节点，并返回其地址,如没找到，返回NULL。  
   
-10. `Status InsertNodeAfter(PNODE node, void * e);`  
-Insert the data domain into the new node of the second parameter after the first parameter node.  
-> 在第一参数结点后插入数据域为第二个参数的新节点。  
+10. `Status InsertNodeAfter(PNODE node, void * e, const int _size);`  
+Insert the data domain into the new node of the second parameter after the first parameter node.The third parameter is the size of the data element.    
+> 在第一参数结点后插入数据域为第二个参数的新节点, 第三个参数为数据元素的大小。  
   
 11. `Status InsertNodeBefore(PNODE node, void * e);`  
-Insert the data domain into the new node of the second parameter before the first parameter node.   
-> 在第一参数结点前插入数据域为第二个参数的新节点。  
+Insert the data domain into the new node of the second parameter before the first parameter node.The third parameter is the size of the data element.     
+> 在第一参数结点前插入数据域为第二个参数的新节点, 第三个参数为数据元素的大小。  
   
 [return/返回](https://github.com/Joezeo/DataStruct#current-data-structure)  
 ---
@@ -153,19 +153,19 @@ Returns the number of stack elements (the length of the stack).
 > 返回栈元素的个数，即栈的长度。  
   
   
-6. `void * GetTop(const PSTACK sqs);`  
+6. `void * GetTop(const PSTACK sqs, const int _size);`  
 If the stack is not empty, return the value of the top element of the stack;Otherwise, NULL is returned.   
-> 若栈不空，返回栈顶元素的值；否则返回NULL。  
+> 若栈不空，返回栈顶元素的值；否则返回NULL。第二个参数为数据元素的大小  
   
   
-7. `Status Push(PSTACK sqs, void * e);`  
+7. `Status Push(PSTACK sqs, void * e, const int _size);`  
 Insert element e to the new stack top element, if the stack capacity is full, automatic expansion capacity.   
-> 插入元素e为新的栈顶元素，若栈容量已满，自动扩充容量。  
+> 插入元素e为新的栈顶元素，若栈容量已满，自动扩充容量。第三个参数是数据元素的大小  
   
   
-8. `void * Pop(PSTACK sqs);`  
+8. `void * Pop(PSTACK sqs, const int _size);`  
 If the stack is not empty, remove the top element of the stack and return its value.   
-> 若栈不空，则删除栈顶元素，并返回其值。  
+> 若栈不空，则删除栈顶元素，并返回其值。第三个参数是数据元素的大小    
   
 [return/返回](https://github.com/Joezeo/DataStruct#current-data-structure)  
 ---
