@@ -719,7 +719,7 @@ GetTop(const PSTACK sqs, void * e, const int _size) {
 
 
 Status
-Push(PSTACK sqs, void * e, const int _size) {
+Push(PSTACK sqs, const void * e, const int _size) {
 
 	assert(sqs != NULL);
 
