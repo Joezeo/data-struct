@@ -625,7 +625,7 @@ InitStack(const int _size) {
 
 	}
 
-	sqs->_base = (void **)malloc(STACKINITSIZE * _size);
+	sqs->_base = (void **)malloc(STACKINITSIZE * sizeof(void *));
 	if (!(sqs->_base)) {
 
 		exit(OVERFLOW);
