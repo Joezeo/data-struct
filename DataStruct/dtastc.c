@@ -616,7 +616,7 @@ InsertNodeBefore(PNODE node, void * e, const int _size) {
 +
 */
 PSTACK
-InitStack() {
+InitStack(const int _size) {
 
 	PSTACK sqs = (PSTACK)malloc(sizeof(STACK));
 	if (!sqs) {
@@ -625,7 +625,7 @@ InitStack() {
 
 	}
 
-	sqs->_base = (void **)malloc(STACKINITSIZE * sizeof(void*));
+	sqs->_base = (void **)malloc(STACKINITSIZE * _size);
 	if (!(sqs->_base)) {
 
 		exit(OVERFLOW);

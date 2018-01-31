@@ -249,7 +249,7 @@ typedef struct {
 +
 */
 PSTACK
-InitStack();
+InitStack(const int);
 // 构造一个空栈
 
 
@@ -278,7 +278,7 @@ GetTop(const PSTACK, void *, const int);
 
 
 Status
-Push(PSTACK, void *, const int);
+Push(PSTACK, const void *, const int);
 // 插入元素e为新的栈顶元素
 
 
