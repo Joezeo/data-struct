@@ -768,7 +768,7 @@ AddStackSize(PSTACK sqs) {
 	assert(sqs != NULL);
 
 	void **add = (void **)realloc(sqs->_base,
-		(sqs->_stacksize + STACKINCREMENT) * sizeof(void*));
+		(sqs->_stacksize + STACKINCREMENT) * sizeof(*(sqs->_top)));
 
 	if (!add) {
 
