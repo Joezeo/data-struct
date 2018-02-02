@@ -953,18 +953,25 @@ EnQuene(PQUENE pQuene, const void * e, const int _size) {
 // 插入元素e为队列的新队尾元素
 
 
-
 Status
 DeQuene(PQUENE pQuene, void * e, const int _size) {
 
 	assert(pQuene != NULL);
 	assert(e != NULL);
 
+	if (EmptyQuene(pQuene)) {
+
+		return ERROR;
+
+	}
+
 	memcpy(e, pQuene->m_front->m_data, _size);
 
 	PQNODE pTmp = pQuene->m_front;
 
 	pQuene->m_front = pTmp->m_nex;
+
+	pQuene->m_cnt--;
 
 	__destroyQnode(pTmp);
 
