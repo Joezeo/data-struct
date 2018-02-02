@@ -19,7 +19,7 @@
 */
 
 static Status
-AddlistSize(PLIST);
+__addlistSize(PLIST);
 // 静态函数，增加线性表的容量
 
 /*
@@ -186,7 +186,7 @@ ListInsert(PLIST plist, const UINT i, const void * e, const int _size) {
 
 	if (plist->m_length == plist->m_listsize) {
 
-		AddlistSize(plist);
+		__addlistSize(plist);
 
 	}
 
@@ -271,7 +271,7 @@ fend:
 
 
 static Status
-AddlistSize(PLIST plist) {
+__addlistSize(PLIST plist) {
 
 	assert(plist != NULL);
 
@@ -305,7 +305,7 @@ AddlistSize(PLIST plist) {
 */
 
 static PNODE
-NewNode(void *, const int);
+__newNode(void *, const int);
 // 创建一个新的节点，其数据域为传入的参数的值
 
 /*
@@ -449,7 +449,7 @@ AddNode(PLINKLIST lklist, void * e, const int _size) {
 
 	assert(lklist != NULL);
 
-	PNODE newnode = NewNode(e, _size);
+	PNODE newnode = __newNode(e, _size);
 
 	if (EmptylkList(lklist)) {
 
@@ -553,7 +553,7 @@ InsertNodeAfter(PNODE node, void * e, const int _size) {
 	assert(node != NULL);
 
 	PNODE tmp = node->m_next;
-	PNODE newnode = NewNode(e, _size);
+	PNODE newnode = __newNode(e, _size);
 
 	newnode->m_next = tmp;
 	newnode->m_pre = node;
@@ -574,7 +574,7 @@ InsertNodeBefore(PNODE node, void * e, const int _size) {
 	assert(node != NULL);
 
 	PNODE tmp = node->m_pre;
-	PNODE newnode = NewNode(e, _size);
+	PNODE newnode = __newNode(e, _size);
 
 	newnode->m_pre = tmp;
 	newnode->m_next = node;
@@ -589,7 +589,7 @@ InsertNodeBefore(PNODE node, void * e, const int _size) {
 
 
 static PNODE
-NewNode(void * e, const int _size) {
+__newNode(void * e, const int _size) {
 
 	PNODE newnode = (PNODE)malloc(sizeof(NODE));
 	if (!newnode) {
@@ -620,7 +620,7 @@ NewNode(void * e, const int _size) {
 */
 
 static Status
-AddStackSize(PSTACK);
+__addStackSize(PSTACK);
 // 增加栈的容量
 
 /*
@@ -738,7 +738,7 @@ Push(PSTACK sqs, const void * e, const int _size) {
 
 	if (sqs->m_cnt == sqs->m_stacksize) {
 
-		AddStackSize(sqs);
+		__addStackSize(sqs);
 
 	}
 
@@ -776,7 +776,7 @@ Pop(PSTACK sqs, void * e, const int _size) {
 
 
 static Status
-AddStackSize(PSTACK sqs) {
+__addStackSize(PSTACK sqs) {
 
 	assert(sqs != NULL);
 
@@ -796,6 +796,39 @@ AddStackSize(PSTACK sqs) {
 
 }
 // 增加栈的容量
+
+/*
+-----------------------------------------------------------------------------
+*/
+
+
+
+
+/*
+----------------------------------- Quene -----------------------------------
+*/
+
+/*
++
+-              函数定义
++
+*/
+
+PQUENE
+InitQuene() {
+
+	PQUENE pquene = (PQUENE)malloc(sizeof(QUENE));
+	if (!pquene)
+		exit(OVERFLOW);
+
+	pquene->m_front = NULL;
+	pquene->m_rear  = NULL;
+	pquene->m_cnt   = 0;
+
+	return pquene;
+
+}
+// 构造一个空队列
 
 /*
 -----------------------------------------------------------------------------
