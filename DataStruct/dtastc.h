@@ -109,11 +109,6 @@ Status
 ListRemove(PLIST, const UINT);
 // 线性表删除数据元素（删除位置为第二个参数）
 
-
-static Status
-AddlistSize(PLIST);
-// 静态函数，增加线性表的容量
-
 /*
 ------------------------------------------------------------------------------
 */
@@ -152,10 +147,6 @@ typedef struct {
 -              函数前向声明
 +
 */
-static PNODE
-NewNode(void *, const int);
-// 创建一个新的节点，其数据域为传入的参数的值
-
 
 Status
 FreeNode(PNODE);
@@ -287,10 +278,6 @@ Pop(PSTACK, void *, const int);
 // 若栈不空，则删除栈顶元素，并返回其值
 
 
-static Status
-AddStackSize(PSTACK);
-// 增加栈的容量
-
 /*
 -----------------------------------------------------------------------------
 */
@@ -303,6 +290,8 @@ AddStackSize(PSTACK);
 ----------------------------------- Quene -----------------------------------
 */
 
+// 基于双向链表的队列，可实现动态分配内存
+
 /*
 +
 -              结构体定义
@@ -310,9 +299,21 @@ AddStackSize(PSTACK);
 */
 typedef struct QNODE {
 	
-	void ** data;
+	void ** m_data;
+
+	struct QNODE * m_nex;
+	struct QNODE * m_pre;
 
 }QNODE, * PQNODE;
+
+typedef struct  {
+	
+	PQNODE m_front; // 队头指针
+	PQNODE m_rear;  // 队尾指针
+
+	UINT   m_cnt;   // 队列元素个数
+
+}QUENE, * PQUENE;
 
 /*
 -----------------------------------------------------------------------------

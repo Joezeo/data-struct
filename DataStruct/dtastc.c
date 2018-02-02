@@ -18,6 +18,10 @@
 ----------------------------------- SqList -----------------------------------
 */
 
+static Status
+AddlistSize(PLIST);
+// 静态函数，增加线性表的容量
+
 /*
 +
 -               函数定义
@@ -300,30 +304,15 @@ AddlistSize(PLIST plist) {
 ---------------------------------- LinkList ----------------------------------
 */
 
+static PNODE
+NewNode(void *, const int);
+// 创建一个新的节点，其数据域为传入的参数的值
+
 /*
 +
 -               函数定义
 +
 */
-static PNODE
-NewNode(void * e, const int _size) {
-
-	PNODE newnode = (PNODE)malloc(sizeof(NODE));
-	if (!newnode) {
-
-		exit(OVERFLOW);
-
-	}
-
-	memcpy(newnode->m_data, e, _size);
-	newnode->m_next = NULL;
-	newnode->m_pre = NULL;
-
-	return newnode;
-
-}
-// 创建一个新的节点，其数据域为传入的参数的值
-
 
 Status
 FreeNode(PNODE node) {
@@ -598,6 +587,26 @@ InsertNodeBefore(PNODE node, void * e, const int _size) {
 }
 // 在第一参数结点前插入数据域为第二个参数的新节点，第三个参数为数据元素的大小
 
+
+static PNODE
+NewNode(void * e, const int _size) {
+
+	PNODE newnode = (PNODE)malloc(sizeof(NODE));
+	if (!newnode) {
+
+		exit(OVERFLOW);
+
+	}
+
+	memcpy(newnode->m_data, e, _size);
+	newnode->m_next = NULL;
+	newnode->m_pre = NULL;
+
+	return newnode;
+
+}
+// 创建一个新的节点，其数据域为传入的参数的值
+
 /*
 ------------------------------------------------------------------------------
 */
@@ -609,6 +618,10 @@ InsertNodeBefore(PNODE node, void * e, const int _size) {
 /*
 ----------------------------------- Stack -----------------------------------
 */
+
+static Status
+AddStackSize(PSTACK);
+// 增加栈的容量
 
 /*
 +
