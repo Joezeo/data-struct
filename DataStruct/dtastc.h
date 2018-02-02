@@ -329,6 +329,32 @@ Status
 DestroyQuene(PQUENE);
 // 销毁队列，释放内存资源
 
+Status
+ClearQuene(PQUENE);
+// 将队列清空为空队列
+
+Status
+EmptyQuene(const PQUENE);
+// 若队列为空队列，返回TRUE，否则返回FALSE
+
+UINT
+QueneLength(const PQUENE);
+// 返回队列元素个数，及队列长度
+
+Status
+GetHead(const PQUENE, void *, const int);
+// 用第二个参数获取队头元素的值，第三个参数传入数据元素的大小，不删除队头元素的值
+
+Status
+EnQuene(PQUENE, const void *, const int);
+// 插入元素e为队列的新队尾元素
+
+Status
+DeQuene(PQUENE, void *, const int);
+// 若队列不空，删除队列的头元素，并用第二个参数返回其值
+
+
+
 
 /*
 -----------------------------------------------------------------------------

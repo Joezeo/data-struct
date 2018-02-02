@@ -808,6 +808,14 @@ __addStackSize(PSTACK sqs) {
 ----------------------------------- Quene -----------------------------------
 */
 
+static PQNODE
+__newQnode(const void *, const int);
+// 静态函数，创建一个新的队列结点
+
+static Status
+__destroyQnode(PQNODE);
+// 静态函数，删除传入的结点
+
 /*
 +
 -              函数定义
@@ -817,18 +825,195 @@ __addStackSize(PSTACK sqs) {
 PQUENE
 InitQuene() {
 
-	PQUENE pquene = (PQUENE)malloc(sizeof(QUENE));
-	if (!pquene)
+	PQUENE pQuene = (PQUENE)malloc(sizeof(QUENE));
+	if (!pQuene)
 		exit(OVERFLOW);
 
-	pquene->m_front = NULL;
-	pquene->m_rear  = NULL;
-	pquene->m_cnt   = 0;
+	pQuene->m_front = NULL;
+	pQuene->m_rear  = NULL;
+	pQuene->m_cnt   = 0;
 
-	return pquene;
+	return pQuene;
 
 }
 // 构造一个空队列
+
+
+Status
+DestroyQuene(PQUENE pQuene) {
+
+	assert(pQuene != NULL);
+
+	ClearQuene(pQuene);
+
+	free(pQuene);
+	pQuene = NULL;
+
+	return OK;
+
+}
+// 销毁队列，释放内存资源
+
+
+Status
+ClearQuene(PQUENE pQuene) {
+
+	assert(pQuene != NULL);
+
+	if (!EmptyQuene(pQuene)) {
+
+		PQNODE pPre = NULL;
+		PQNODE pCur = pQuene->m_front;
+
+		while (pCur != NULL) {
+
+			pPre = pCur->m_nex;
+			__destroyQnode(pCur);
+			pCur = pPre;
+
+		}
+
+	}
+
+	pQuene->m_cnt = 0;
+
+	return OK;
+
+}
+// 将队列清空为空队列
+
+
+Status
+EmptyQuene(const PQUENE pQuene) {
+
+	assert(pQuene != NULL);
+
+	if (pQuene->m_cnt == 0)
+		return TRUE;
+
+	return FALSE;
+
+}
+// 若队列为空队列，返回TRUE，否则返回FALSE
+
+
+UINT
+QueneLength(const PQUENE pQuene) {
+
+	assert(pQuene != NULL);
+
+	return pQuene->m_cnt;
+
+}
+// 返回队列元素个数，及队列长度
+
+
+Status
+GetHead(const PQUENE pQuene, void * e, const int _size) {
+
+	assert(pQuene != NULL);
+	assert(e != NULL);
+
+	memcpy(e, pQuene->m_front->m_data, _size);
+
+	return OK;
+
+}
+// 用第二个参数获取队头元素的值，第三个参数传入数据元素的大小，不删除队头元素的值
+
+
+Status
+EnQuene(PQUENE pQuene, const void * e, const int _size) {
+
+	assert(pQuene != NULL);
+	assert(e != NULL);
+
+	PQNODE newNode = __newQnode(e, _size);
+
+	if (EmptyQuene(pQuene)) {
+
+		pQuene->m_front = newNode;
+		pQuene->m_rear  = newNode;
+
+	}
+	else {
+
+		pQuene->m_rear->m_nex = newNode;
+		newNode->m_pre = pQuene->m_rear;
+
+		pQuene->m_rear = newNode;
+
+	}
+
+	pQuene->m_cnt++;
+
+	return OK;
+
+}
+// 插入元素e为队列的新队尾元素
+
+
+
+Status
+DeQuene(PQUENE pQuene, void * e, const int _size) {
+
+	assert(pQuene != NULL);
+	assert(e != NULL);
+
+	memcpy(e, pQuene->m_front->m_data, _size);
+
+	PQNODE pTmp = pQuene->m_front;
+
+	pQuene->m_front = pTmp->m_nex;
+
+	__destroyQnode(pTmp);
+
+	return OK;
+
+}
+// 若队列不空，删除队列的头元素，并用第二个参数返回其值
+
+
+static PQNODE
+__newQnode(const void * e, const int _size) {
+
+	assert(e != NULL);
+
+	PQNODE newNode = (PQNODE)malloc(sizeof(PQNODE));
+	if (!newNode)
+		exit(OVERFLOW);
+
+	newNode->m_data = (void **)malloc(_size);
+	if (!(newNode->m_data))
+		exit(OVERFLOW);
+
+	memcpy(newNode->m_data, e, _size);
+
+	newNode->m_nex = NULL;
+	newNode->m_pre = NULL;
+
+	return newNode;
+
+}
+// 静态函数，创建一个新的队列结点
+
+
+static Status
+__destroyQnode(PQNODE pQnode) {
+
+	assert(pQnode != NULL);
+
+	free(pQnode->m_data);
+	pQnode->m_data = NULL;
+
+	free(pQnode);
+	pQnode = NULL;
+
+	return OK;
+
+}
+// 静态函数，删除传入的结点
+
 
 /*
 -----------------------------------------------------------------------------
