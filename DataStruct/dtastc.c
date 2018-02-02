@@ -957,7 +957,6 @@ Status
 DeQuene(PQUENE pQuene, void * e, const int _size) {
 
 	assert(pQuene != NULL);
-	assert(e != NULL);
 
 	if (EmptyQuene(pQuene)) {
 
