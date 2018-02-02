@@ -989,7 +989,7 @@ __newQnode(const void * e, const int _size) {
 	if (!newNode)
 		exit(OVERFLOW);
 
-	newNode->m_data = (void **)malloc(_size);
+	newNode->m_data = (void *)malloc(_size);
 	if (!(newNode->m_data))
 		exit(OVERFLOW);
 

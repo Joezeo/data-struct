@@ -299,7 +299,7 @@ Pop(PSTACK, void *, const int);
 */
 typedef struct QNODE {
 	
-	void ** m_data;
+	void * m_data;
 
 	struct QNODE * m_nex;
 	struct QNODE * m_pre;
