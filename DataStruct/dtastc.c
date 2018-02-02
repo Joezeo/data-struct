@@ -4,7 +4,7 @@
 +
 -             创建时间：2017.12.21 / 18：23
 +
--             修改时间：2017.12.26 / 21：03
+-             修改时间：2018.02.02 / 15：01
 +
 -             文件名称：dtastc.c
 +
@@ -24,7 +24,7 @@
 +
 */
 PLIST
-InitList() {
+InitList(const int _size) {
 
 	PLIST _list = (PLIST)malloc(sizeof(LIST));
 	if (!_list) {
@@ -33,7 +33,7 @@ InitList() {
 
 	}
 
-	_list->_base = (void **)malloc(LISTINITSIZE * sizeof(void *));
+	_list->_base = (void **)malloc(LISTINITSIZE * _size);
 	if (!(_list->_base)) {
 
 		exit(OVERFLOW);
