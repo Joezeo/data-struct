@@ -54,9 +54,9 @@ typedef int Status;
 */
 typedef struct {
 
-	void ** _base;    // 线性表基地址
-	UINT _length;     // 线性表长度
-	UINT _listsize;   // 线性表容量
+	void ** m_base;    // 线性表基地址
+	UINT m_length;     // 线性表长度
+	UINT m_listsize;   // 线性表容量
 
 }LIST, * PLIST;
 
@@ -133,17 +133,17 @@ AddlistSize(PLIST);
 */
 typedef struct NODE {
 
-	void * _data;
-	struct NODE * _next;
-	struct NODE * _pre;
+	void * m_data;
+	struct NODE * m_next;
+	struct NODE * m_pre;
 
 }NODE, * PNODE;
 
 typedef struct {
 
-	PNODE _head;    // 头指针
-	PNODE _tail;    // 尾指针
-	UINT  _cnt;     // 元素个数
+	PNODE m_head;    // 头指针
+	PNODE m_tail;    // 尾指针
+	UINT  m_cnt;     // 元素个数
 
 }LINKLIST, * PLINKLIST;
 
@@ -236,10 +236,10 @@ InsertNodeBefore(PNODE, void *, const int);
 */
 typedef struct {
 
-	void ** _base;          // 栈底指针
-	void ** _top;           // 栈顶指针
-	UINT _stacksize;        // 栈容量
-	UINT _cnt;              // 当前栈元素个数
+	void ** m_base;          // 栈底指针
+	void ** m_top;           // 栈顶指针
+	UINT m_stacksize;        // 栈容量
+	UINT m_cnt;              // 当前栈元素个数
 
 }STACK, * PSTACK;
 
@@ -303,7 +303,16 @@ AddStackSize(PSTACK);
 ----------------------------------- Quene -----------------------------------
 */
 
+/*
++
+-              结构体定义
++
+*/
+typedef struct QNODE {
+	
+	void ** data;
 
+}QNODE, * PQNODE;
 
 /*
 -----------------------------------------------------------------------------

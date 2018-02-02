@@ -33,15 +33,15 @@ InitList(const int _size) {
 
 	}
 
-	_list->_base = (void **)malloc(LISTINITSIZE * _size);
-	if (!(_list->_base)) {
+	_list->m_base = (void **)malloc(LISTINITSIZE * _size);
+	if (!(_list->m_base)) {
 
 		exit(OVERFLOW);
 
 	}
 
-	_list->_length = 0;
-	_list->_listsize = LISTINITSIZE;
+	_list->m_length = 0;
+	_list->m_listsize = LISTINITSIZE;
 
 	return _list;
 
@@ -54,8 +54,8 @@ FreeList(PLIST plist) {
 
 	assert(plist != NULL);
 
-	free(plist->_base);
-	plist->_base = NULL;
+	free(plist->m_base);
+	plist->m_base = NULL;
 
 	free(plist);
 	plist = NULL;
@@ -71,7 +71,7 @@ EmptyList(const PLIST plist) {
 
 	assert(plist != NULL);
 
-	if (plist->_length == 0) {
+	if (plist->m_length == 0) {
 
 		return TRUE;
 
@@ -94,13 +94,13 @@ ClearList(PLIST plist) {
 
 	}
 
-	for (UINT i = 0; i < plist->_length; i++) {
+	for (UINT i = 0; i < plist->m_length; i++) {
 
-		*(plist->_base + i) = 0;
+		*(plist->m_base + i) = 0;
 
 	}
 
-	plist->_length = 0;
+	plist->m_length = 0;
 
 	return OK;
 
@@ -113,7 +113,7 @@ ListLength(const PLIST plist) {
 
 	assert(plist != NULL);
 
-	return plist->_length;
+	return plist->m_length;
 
 }
 // 返回线性表长度（数据元素个数）
@@ -130,13 +130,13 @@ GetElem(const PLIST plist, const UINT i) {
 
 	}
 
-	if (i > plist->_length || i <= 0) {
+	if (i > plist->m_length || i <= 0) {
 
 		return NULL;
 
 	}
 
-	return *(plist->_base + i - 1);
+	return *(plist->m_base + i - 1);
 
 }
 // 获取线性表的第i个数据元素,如线性表为空表返回NULL,i越界返回NULL
@@ -153,9 +153,9 @@ Located(const PLIST plist, const void * e) {
 
 	}
 
-	for (UINT i = 0; i < plist->_length; i++) {
+	for (UINT i = 0; i < plist->m_length; i++) {
 
-		if (*(plist->_base + i) == e) {
+		if (*(plist->m_base + i) == e) {
 
 			return TRUE;
 
@@ -174,13 +174,13 @@ ListInsert(PLIST plist, const UINT i, const void * e, const int _size) {
 
 	assert(plist != NULL);
 
-	if (i <= 0 || i > plist->_length + 1) {
+	if (i <= 0 || i > plist->m_length + 1) {
 
 		return ERROR;
 
 	}
 
-	if (plist->_length == plist->_listsize) {
+	if (plist->m_length == plist->m_listsize) {
 
 		AddlistSize(plist);
 
@@ -188,34 +188,34 @@ ListInsert(PLIST plist, const UINT i, const void * e, const int _size) {
 
 	if(EmptyList(plist)){
 
-		memcpy(plist->_base, e, _size);
+		memcpy(plist->m_base, e, _size);
 
 		goto fend;
 	
 	}
-	else if (i == plist->_length + 1) {
+	else if (i == plist->m_length + 1) {
 
-		memcpy(plist->_base + i - 1, e, _size);
+		memcpy(plist->m_base + i - 1, e, _size);
 
 		goto fend;
 
 	}
 	else {
 
-		for (UINT j = plist->_length; j >= i; j--) {
+		for (UINT j = plist->m_length; j >= i; j--) {
 
-			memcpy(plist->_base + j, plist->_base + j - 1, _size);
+			memcpy(plist->m_base + j, plist->m_base + j - 1, _size);
 
 		}
 
-		memcpy(plist->_base + i - 1, e, _size);
+		memcpy(plist->m_base + i - 1, e, _size);
 
 		goto fend;
 
 	}
 
 fend:
-	plist->_length++;
+	plist->m_length++;
 	return OK;
 
 }
@@ -227,7 +227,7 @@ ListRemove(PLIST plist, const UINT i) {
 
 	assert(plist != NULL);
 
-	if (i <= 0 || i > plist->_length) {
+	if (i <= 0 || i > plist->m_length) {
 
 		return ERROR;
 
@@ -239,18 +239,18 @@ ListRemove(PLIST plist, const UINT i) {
 
 	}
 
-	if (i == plist->_length) {
+	if (i == plist->m_length) {
 
-		*(plist->_base + i - 1) = 0;
+		*(plist->m_base + i - 1) = 0;
 
 		goto fend;
 
 	}
 	else {
 
-		for (UINT j = i - 1; j < plist->_length - 1; j++) {
+		for (UINT j = i - 1; j < plist->m_length - 1; j++) {
 
-			*(plist->_base + j) = *(plist->_base + j + 1);
+			*(plist->m_base + j) = *(plist->m_base + j + 1);
 
 			goto fend;
 
@@ -259,7 +259,7 @@ ListRemove(PLIST plist, const UINT i) {
 	}
 
 fend:
-	plist->_length--;
+	plist->m_length--;
 	return OK;
 
 }
@@ -271,8 +271,8 @@ AddlistSize(PLIST plist) {
 
 	assert(plist != NULL);
 
-	void ** add = (void **)realloc(plist->_base,
-		(plist->_listsize + LISTINCREMENT) * sizeof(void *));
+	void ** add = (void **)realloc(plist->m_base,
+		(plist->m_listsize + LISTINCREMENT) * sizeof(void *));
 
 	if (!add) {
 
@@ -280,8 +280,8 @@ AddlistSize(PLIST plist) {
 
 	}
 
-	plist->_base = add;
-	plist->_listsize += LISTINCREMENT;
+	plist->m_base = add;
+	plist->m_listsize += LISTINCREMENT;
 
 	return OK;
 
@@ -315,9 +315,9 @@ NewNode(void * e, const int _size) {
 
 	}
 
-	memcpy(newnode->_data, e, _size);
-	newnode->_next = NULL;
-	newnode->_pre = NULL;
+	memcpy(newnode->m_data, e, _size);
+	newnode->m_next = NULL;
+	newnode->m_pre = NULL;
 
 	return newnode;
 
@@ -330,16 +330,16 @@ FreeNode(PNODE node) {
 
 	assert(node != NULL);
 
-	if (node->_pre != NULL) {
+	if (node->m_pre != NULL) {
 
-		PNODE tmp = node->_pre;
-		tmp->_next = node->_next;
+		PNODE tmp = node->m_pre;
+		tmp->m_next = node->m_next;
 
 	}
-	if (node->_next != NULL) {
+	if (node->m_next != NULL) {
 
-		PNODE tmp = node->_next;
-		tmp->_pre = node->_pre;
+		PNODE tmp = node->m_next;
+		tmp->m_pre = node->m_pre;
 
 	}
 
@@ -362,9 +362,9 @@ Initlklist() {
 
 	}
 
-	lklist->_cnt = 0;
-	lklist->_head = NULL;
-	lklist->_tail = NULL;
+	lklist->m_cnt = 0;
+	lklist->m_head = NULL;
+	lklist->m_tail = NULL;
 
 	return lklist;
 
@@ -387,11 +387,11 @@ FreelkList(PLINKLIST lklist) {
 	}
 
 	PNODE pre = NULL;
-	PNODE cur = lklist->_head;
+	PNODE cur = lklist->m_head;
 
 	while (cur != NULL) {
 
-		pre = cur->_next;
+		pre = cur->m_next;
 		free(cur);
 		cur = pre;
 
@@ -418,19 +418,19 @@ ClearlkList(PLINKLIST lklist) {
 	}
 
 	PNODE pre = NULL;
-	PNODE cur = lklist->_head;
+	PNODE cur = lklist->m_head;
 
 	while (cur != NULL) {
 
-		pre = cur->_next;
+		pre = cur->m_next;
 		free(cur);
 		cur = pre;
 
 	}
 
-	lklist->_head = NULL;
-	lklist->_tail = NULL;
-	lklist->_cnt = 0;
+	lklist->m_head = NULL;
+	lklist->m_tail = NULL;
+	lklist->m_cnt = 0;
 
 	return OK;
 
@@ -443,7 +443,7 @@ EmptylkList(const PLINKLIST lklist) {
 
 	assert(lklist != NULL);
 
-	if (lklist->_cnt == 0) {
+	if (lklist->m_cnt == 0) {
 
 		return TRUE;
 
@@ -464,21 +464,21 @@ AddNode(PLINKLIST lklist, void * e, const int _size) {
 
 	if (EmptylkList(lklist)) {
 
-		lklist->_head = newnode;
-		lklist->_tail = newnode;
+		lklist->m_head = newnode;
+		lklist->m_tail = newnode;
 
 	}
 	else {
 
 		PNODE tmp = NULL;
-		tmp = lklist->_tail;
-		lklist->_tail->_next = newnode;
-		lklist->_tail = newnode;
-		lklist->_tail->_pre = tmp;
+		tmp = lklist->m_tail;
+		lklist->m_tail->m_next = newnode;
+		lklist->m_tail = newnode;
+		lklist->m_tail->m_pre = tmp;
 
 	}
 
-	lklist->_cnt++;
+	lklist->m_cnt++;
 
 	return OK;
 
@@ -491,7 +491,7 @@ RemoveNode(PLINKLIST lklist) {
 
 	assert(lklist != NULL);
 
-	PNODE tmp = lklist->_tail;
+	PNODE tmp = lklist->m_tail;
 
 	if (EmptylkList(lklist)) {
 
@@ -499,9 +499,9 @@ RemoveNode(PLINKLIST lklist) {
 
 	}
 
-	lklist->_tail = lklist->_tail->_pre;
-	lklist->_tail->_next = NULL;
-	lklist->_cnt--;
+	lklist->m_tail = lklist->m_tail->m_pre;
+	lklist->m_tail->m_next = NULL;
+	lklist->m_cnt--;
 
 	free(tmp);
 	tmp = NULL;
@@ -517,7 +517,7 @@ lkListLength(const PLINKLIST lklist) {
 
 	assert(lklist != NULL);
 
-	return lklist->_cnt;
+	return lklist->m_cnt;
 
 }
 // 返回链表的长度(元素个数)
@@ -534,11 +534,11 @@ GetNode(const PLINKLIST lklist, void * e) {
 
 	}
 
-	PNODE node = lklist->_head;
+	PNODE node = lklist->m_head;
 
-	for (; node != NULL; node = node->_next) {
+	for (; node != NULL; node = node->m_next) {
 
-		if (node->_data == e) {
+		if (node->m_data == e) {
 
 			break;
 
@@ -563,14 +563,14 @@ InsertNodeAfter(PNODE node, void * e, const int _size) {
 
 	assert(node != NULL);
 
-	PNODE tmp = node->_next;
+	PNODE tmp = node->m_next;
 	PNODE newnode = NewNode(e, _size);
 
-	newnode->_next = tmp;
-	newnode->_pre = node;
+	newnode->m_next = tmp;
+	newnode->m_pre = node;
 
-	node->_next = newnode;
-	tmp->_pre = newnode;
+	node->m_next = newnode;
+	tmp->m_pre = newnode;
 
 	return OK;
 
@@ -584,14 +584,14 @@ InsertNodeBefore(PNODE node, void * e, const int _size) {
 
 	assert(node != NULL);
 
-	PNODE tmp = node->_pre;
+	PNODE tmp = node->m_pre;
 	PNODE newnode = NewNode(e, _size);
 
-	newnode->_pre = tmp;
-	newnode->_next = node;
+	newnode->m_pre = tmp;
+	newnode->m_next = node;
 
-	tmp->_next = newnode;
-	node->_pre = newnode;
+	tmp->m_next = newnode;
+	node->m_pre = newnode;
 
 	return OK;
 
@@ -625,16 +625,16 @@ InitStack(const int _size) {
 
 	}
 
-	sqs->_base = (void **)malloc(STACKINITSIZE * _size);
-	if (!(sqs->_base)) {
+	sqs->m_base = (void **)malloc(STACKINITSIZE * _size);
+	if (!(sqs->m_base)) {
 
 		exit(OVERFLOW);
 
 	}	
 	
-	sqs->_top = sqs->_base;
-	sqs->_stacksize = STACKINITSIZE;
-	sqs->_cnt = 0;
+	sqs->m_top = sqs->m_base;
+	sqs->m_stacksize = STACKINITSIZE;
+	sqs->m_cnt = 0;
 
 	return sqs;
 
@@ -647,9 +647,9 @@ DestroyStack(PSTACK sqs) {
 
 	assert(sqs != NULL);
 
-	free(sqs->_base);
-	sqs->_base = NULL;
-	sqs->_top = NULL;
+	free(sqs->m_base);
+	sqs->m_base = NULL;
+	sqs->m_top = NULL;
 
 	free(sqs);
 	sqs = NULL;
@@ -665,8 +665,8 @@ ClearStack(PSTACK sqs) {
 
 	assert(sqs != NULL);
 
-	sqs->_top = sqs->_base;
-	sqs->_cnt = 0;
+	sqs->m_top = sqs->m_base;
+	sqs->m_cnt = 0;
 
 	return OK;
 
@@ -679,7 +679,7 @@ StackEmpty(const PSTACK sqs) {
 
 	assert(sqs != NULL);
 
-	if (sqs->_cnt == 0)
+	if (sqs->m_cnt == 0)
 		return TRUE;
 
 	return FALSE;
@@ -693,7 +693,7 @@ StackLength(const PSTACK sqs) {
 
 	assert(sqs != NULL);
 
-	return sqs->_cnt;
+	return sqs->m_cnt;
 
 }
 // 返回栈元素的个数，即栈的长度
@@ -710,7 +710,7 @@ GetTop(const PSTACK sqs, void * e, const int _size) {
 
 	}
 
-	memcpy(e, sqs->_top - 1, _size);
+	memcpy(e, sqs->m_top - 1, _size);
 
 	return OK;
 
@@ -723,16 +723,16 @@ Push(PSTACK sqs, const void * e, const int _size) {
 
 	assert(sqs != NULL);
 
-	if (sqs->_cnt == sqs->_stacksize) {
+	if (sqs->m_cnt == sqs->m_stacksize) {
 
 		AddStackSize(sqs);
 
 	}
 
-	memcpy(sqs->_top, e, _size);
+	memcpy(sqs->m_top, e, _size);
 
-	sqs->_top++;
-	sqs->_cnt++;
+	sqs->m_top++;
+	sqs->m_cnt++;
 
 	return OK;
 
@@ -751,10 +751,10 @@ Pop(PSTACK sqs, void * e, const int _size) {
 
 	}
 
-	sqs->_top--;
-	sqs->_cnt--;
+	sqs->m_top--;
+	sqs->m_cnt--;
 
-	memcpy(e, sqs->_top, _size);
+	memcpy(e, sqs->m_top, _size);
 
 	return OK;
 
@@ -767,8 +767,8 @@ AddStackSize(PSTACK sqs) {
 
 	assert(sqs != NULL);
 
-	void **add = (void **)realloc(sqs->_base,
-		(sqs->_stacksize + STACKINCREMENT) * sizeof(*(sqs->_top)));
+	void **add = (void **)realloc(sqs->m_base,
+		(sqs->m_stacksize + STACKINCREMENT) * sizeof(*(sqs->m_top)));
 
 	if (!add) {
 
@@ -776,8 +776,8 @@ AddStackSize(PSTACK sqs) {
 
 	}
 
-	sqs->_base = add;
-	sqs->_stacksize += STACKINCREMENT;
+	sqs->m_base = add;
+	sqs->m_stacksize += STACKINCREMENT;
 
 	return OK;
 
