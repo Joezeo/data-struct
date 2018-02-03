@@ -4,7 +4,7 @@
 +
 -             创建时间：2017.12.21 / 18：23
 +
--             修改时间：2018.02.02 / 15：01
+-             修改时间：2018.02.03 / 19：32
 +
 -             文件名称：dtastc.c
 +
@@ -989,7 +989,7 @@ __newQnode(const void * e, const int _size) {
 	if (!newNode)
 		exit(OVERFLOW);
 
-	newNode->m_data = (void *)malloc(_size);
+	newNode->m_data = (void *)malloc(sizeof(_size));
 	if (!(newNode->m_data))
 		exit(OVERFLOW);
 
