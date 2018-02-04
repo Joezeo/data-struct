@@ -985,11 +985,11 @@ __newQnode(const void * e, const int _size) {
 
 	assert(e != NULL);
 
-	PQNODE newNode = (PQNODE)malloc(sizeof(PQNODE));
+	PQNODE newNode = (PQNODE)malloc(sizeof(QNODE));
 	if (!newNode)
 		exit(OVERFLOW);
 
-	newNode->m_data = (void *)malloc(sizeof(_size));
+	newNode->m_data = (void *)malloc(_size);
 	if (!(newNode->m_data))
 		exit(OVERFLOW);
 
