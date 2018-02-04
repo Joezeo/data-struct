@@ -30,6 +30,8 @@ __addlistSize(PLIST);
 PLIST
 InitList(const int _size) {
 
+	assert(_size > 0);
+
 	PLIST _list = (PLIST)malloc(sizeof(LIST));
 	if (!_list) {
 
@@ -177,6 +179,7 @@ Status
 ListInsert(PLIST plist, const UINT i, const void * e, const int _size) {
 
 	assert(plist != NULL);
+	assert(_size > 0);
 
 	if (i <= 0 || i > plist->m_length + 1) {
 
@@ -448,6 +451,7 @@ Status
 AddNode(PLINKLIST lklist, void * e, const int _size) {
 
 	assert(lklist != NULL);
+	assert(_size > 0);
 
 	PNODE newnode = __newNode(e, _size);
 
@@ -550,6 +554,8 @@ GetNode(const PLINKLIST lklist, void * e) {
 Status
 InsertNodeAfter(PNODE node, void * e, const int _size) {
 
+	assert(_size > 0);
+
 	assert(node != NULL);
 
 	PNODE tmp = node->m_next;
@@ -571,6 +577,8 @@ InsertNodeAfter(PNODE node, void * e, const int _size) {
 Status
 InsertNodeBefore(PNODE node, void * e, const int _size) {
 
+	assert(_size > 0);
+
 	assert(node != NULL);
 
 	PNODE tmp = node->m_pre;
@@ -590,6 +598,8 @@ InsertNodeBefore(PNODE node, void * e, const int _size) {
 
 static PNODE
 __newNode(void * e, const int _size) {
+
+	assert(_size > 0);
 
 	PNODE newnode = (PNODE)malloc(sizeof(NODE));
 	if (!newnode) {
@@ -630,6 +640,8 @@ __addStackSize(PSTACK);
 */
 PSTACK
 InitStack(const int _size) {
+
+	assert(_size > 0);
 
 	PSTACK sqs = (PSTACK)malloc(sizeof(STACK));
 	if (!sqs) {
@@ -716,6 +728,7 @@ Status
 GetTop(const PSTACK sqs, void * e, const int _size) {
 
 	assert(sqs != NULL);
+	assert(_size > 0);
 
 	if (StackEmpty(sqs)) {
 
@@ -735,6 +748,7 @@ Status
 Push(PSTACK sqs, const void * e, const int _size) {
 
 	assert(sqs != NULL);
+	assert(_size > 0);
 
 	if (sqs->m_cnt == sqs->m_stacksize) {
 
@@ -757,6 +771,7 @@ Status
 Pop(PSTACK sqs, void * e, const int _size) {
 
 	assert(sqs != NULL);
+	assert(_size > 0);
 
 	if (StackEmpty(sqs)) {
 
@@ -913,6 +928,7 @@ GetHead(const PQUENE pQuene, void * e, const int _size) {
 
 	assert(pQuene != NULL);
 	assert(e != NULL);
+	assert(_size > 0);
 
 	memcpy(e, pQuene->m_front->m_data, _size);
 
@@ -927,6 +943,7 @@ EnQuene(PQUENE pQuene, const void * e, const int _size) {
 
 	assert(pQuene != NULL);
 	assert(e != NULL);
+	assert(_size > 0);
 
 	PQNODE newNode = __newQnode(e, _size);
 
@@ -957,6 +974,7 @@ Status
 DeQuene(PQUENE pQuene, void * e, const int _size) {
 
 	assert(pQuene != NULL);
+	assert(_size > 0);
 
 	if (EmptyQuene(pQuene)) {
 
@@ -984,6 +1002,7 @@ static PQNODE
 __newQnode(const void * e, const int _size) {
 
 	assert(e != NULL);
+	assert(_size > 0);
 
 	PQNODE newNode = (PQNODE)malloc(sizeof(QNODE));
 	if (!newNode)
