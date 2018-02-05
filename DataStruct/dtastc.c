@@ -1028,7 +1028,7 @@ __destroyQnode(PQNODE pQnode) {
 
 	assert(pQnode != NULL);
 
-	free(pQnode->m_data);
+	free(&(pQnode->m_data));
 	pQnode->m_data = NULL;
 
 	free(pQnode);
