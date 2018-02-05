@@ -402,7 +402,7 @@ ClearString(PSTRING);
 
 PSTRING
 StrConcat(PSTRING, PSTRING);
-// 返回由两串联结而成的新串，并释放旧串的空间
+// 返回由两串联结而成的新串
 
 PSTRING
 SubString(PSTRING, const int, const int);

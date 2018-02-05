@@ -1171,16 +1171,10 @@ StrConcat(PSTRING pStr1, PSTRING pStr2) {
 
 	nStr->m_length = pStr1->m_length + pStr2->m_length;
 
-	free(pStr1->m_ch);
-	free(pStr1);
-
-	free(pStr2->m_ch);
-	free(pStr2);
-
 	return nStr;
 
 }
-// 返回由两串联结而成的新串，并释放旧串的空间
+// 返回由两串联结而成的新串
 
 
 PSTRING
