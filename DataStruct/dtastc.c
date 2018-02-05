@@ -1257,12 +1257,12 @@ __getNext(int * next, char * pat, int len) {
 	assert(next != NULL);
 	assert(pat != NULL);
 
-	int i = 0, j = 0;
+	int i = 0, j = -1;
 	next[0] = 0;
 
 	while (i < len) {
 
-		if (j == 0 || pat[i] == pat[j]) {
+		if (j == -1 || pat[i] == pat[j]) {
 
 			i++;
 			j++;
