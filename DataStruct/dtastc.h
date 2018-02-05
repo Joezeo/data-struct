@@ -358,6 +358,60 @@ DeQuene(PQUENE, void *, const int);
 -----------------------------------------------------------------------------
 */
 
+
+
+
+
+/*
+----------------------------------- String -----------------------------------
+*/
+
+/*
++
+-              结构体定义
++
+*/
+typedef struct {
+
+	char * m_ch;
+	int    m_length;
+
+}STRING, * PSTRING;
+
+
+/*
++
+-              函数前向声明
++
+*/
+PSTRING
+StrAssign(char *);
+// 生成一个其值等于串常量chars的串
+
+int
+StrLength(const PSTRING);
+// 返回串的长度
+
+int
+StrCompare(const PSTRING, const PSTRING);
+// 串比较，若相等返回0，若arg1 > arg2，返回值>0,否则返回值<0
+
+Status
+ClearString(PSTRING);
+// 将串清空为空串
+
+PSTRING
+StrConcat(PSTRING, PSTRING);
+// 返回由两串联结而成的新串，并释放旧串的空间
+
+PSTRING
+SubString(PSTRING, const int, const int);
+// 返回串从第二个参数（从0开始计）起，长度为第三个参数的子串
+
+/*
+------------------------------------------------------------------------------
+*/
+
 #ifdef __cplusplus
 }
 #endif

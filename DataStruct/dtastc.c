@@ -1045,3 +1045,173 @@ __destroyQnode(PQNODE pQnode) {
 /*
 -----------------------------------------------------------------------------
 */
+
+
+
+
+
+/*
+----------------------------------- String -----------------------------------
+*/
+
+/*
++
+-              函数定义
++
+*/
+PSTRING
+StrAssign(char * chars) {
+
+	assert(chars != NULL);
+
+	int len = 0;
+
+	PSTRING pString = (PSTRING)malloc(sizeof(STRING));
+	if (!pString)
+		exit(OVERFLOW);
+
+	for (char * i = chars; *i != '\0'; len++, i++)
+		; // 求串chars的长度
+
+	pString->m_ch = (char *)malloc(len * sizeof(char));
+	if (!(pString->m_ch))
+		exit(OVERFLOW);
+
+	for (int i = 0; i < len; i++) {
+
+		*(pString->m_ch + i) = chars[i];
+
+	}
+
+	pString->m_length = len;
+	
+	return pString;
+
+}
+// 生成一个其值等于串常量chars的串
+
+
+int
+StrLength(const PSTRING pString) {
+
+	assert(pString != NULL);
+
+	return pString->m_length;
+
+}
+// 返回串的长度
+
+
+int
+StrCompare(const PSTRING arg1, const PSTRING arg2) {
+
+	assert(arg1 != NULL);
+	assert(arg2 != NULL);
+
+	for (int i = 0; i < arg1->m_length && i < arg2->m_length; i++) {
+
+		if (arg1->m_ch[i] != arg2->m_ch[i])
+			return (arg1->m_ch[i] - arg2->m_ch[i]);
+
+	}
+
+	return (arg1->m_length - arg2->m_length);
+
+}
+// 串比较，若相等返回0，若arg1 > arg2，返回值>0,否则返回值<0
+
+
+Status
+ClearString(PSTRING pString) {
+
+	assert(pString != NULL);
+
+	if (pString->m_ch) {
+
+		free(pString->m_ch);
+
+		pString->m_ch = NULL;
+
+	}
+
+	pString->m_length = 0;
+
+	return OK;
+		
+
+}
+// 将串清空为空串
+
+
+PSTRING
+StrConcat(PSTRING pStr1, PSTRING pStr2) {
+
+	assert(pStr1 != NULL);
+	assert(pStr2 != NULL);
+
+	PSTRING nStr = (PSTRING)malloc(sizeof(STRING));
+	if (!nStr)
+		exit(OVERFLOW);
+
+	nStr->m_ch = (char *)malloc((pStr1->m_length + pStr2->m_length) * sizeof(char));
+	if (!(nStr->m_ch))
+		exit(OVERFLOW);
+
+	for (int i = 0; i < pStr1->m_length; i++) {
+
+		nStr->m_ch[i] = pStr1->m_ch[i];
+
+	}
+
+	for (int i = 0; i < pStr2->m_length; i++) {
+
+		nStr->m_ch[i + pStr1->m_length] = pStr2->m_ch[i];
+
+	}
+
+	nStr->m_length = pStr1->m_length + pStr2->m_length;
+
+	free(pStr1->m_ch);
+	free(pStr1);
+
+	free(pStr2->m_ch);
+	free(pStr2);
+
+	return nStr;
+
+}
+// 返回由两串联结而成的新串，并释放旧串的空间
+
+
+PSTRING
+SubString(PSTRING pStr, const int pos, const int len) {
+
+	assert(pStr != NULL);
+
+	if (pos < 0 || pos >= pStr->m_length || len < 0 || len > pStr->m_length - pos)
+		return NULL;
+
+	PSTRING subStr = (PSTRING)malloc(len * sizeof(STRING));
+	if (!subStr)
+		exit(OVERFLOW);
+
+	subStr->m_ch = (char *)malloc(len * sizeof(char));
+	if (!(subStr->m_ch))
+		exit(OVERFLOW);
+
+	for (int i = 0; i < len; i++) {
+
+		subStr->m_ch[i] = pStr->m_ch[i + pos];
+
+	}
+
+	subStr->m_length = len;
+
+	return subStr;
+
+}
+// 返回串从第二个参数（从0开始计）起，长度为第三个参数的子串
+
+/*
+------------------------------------------------------------------------------
+*/
