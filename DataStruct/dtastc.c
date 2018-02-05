@@ -1054,6 +1054,9 @@ __destroyQnode(PQNODE pQnode) {
 ----------------------------------- String -----------------------------------
 */
 
+static
+__getNext(int *, char *, int);
+
 /*
 +
 -              函数定义
@@ -1205,6 +1208,73 @@ SubString(PSTRING pStr, const int pos, const int len) {
 
 }
 // 返回串从第二个参数（从0开始计）起，长度为第三个参数的子串
+
+
+int
+StrIndex(PSTRING pStr, PSTRING pPat, int pos) {
+
+	// 采用 KMP 算法
+
+	assert(pStr != NULL);
+	assert(pPat != NULL);
+
+	int i = pos, j = 0;
+
+	int * NEXT = (int *)malloc(pPat->m_length * sizeof(int));
+	if (!NEXT)
+		exit(OVERFLOW);
+
+	__getNext(NEXT, pPat->m_ch, pPat->m_length);
+
+	while (i < pStr->m_length && j < pPat->m_length) {
+
+		if (j == 0 || pStr->m_ch[i] == pStr->m_ch[j]) {
+
+			i++;
+			j++;
+
+		} // 匹配成功，或者 j==0（及从模式串第一位开始匹配）
+		else {
+
+			j = NEXT[j];
+
+		} // 失配，j 回溯
+
+	}
+
+	if (j > pPat->m_length)
+		return i - pPat->m_length;
+
+	return 0;
+
+}
+// 第一个参数为主串，第二个参数为模式串，第三个参数为开始匹配的位置
+
+
+static
+__getNext(int * next, char * pat, int len) {
+
+	assert(next != NULL);
+	assert(pat != NULL);
+
+	int i = 0, j = 0;
+	next[0] = 0;
+
+	while (i < len) {
+
+		if (j == 0 || pat[i] == pat[j]) {
+
+			i++;
+			j++;
+			next[i] = j;
+
+		}
+		else
+			j = next[j];
+
+	}
+
+}
 
 /*
 ------------------------------------------------------------------------------
