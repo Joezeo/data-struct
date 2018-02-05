@@ -988,6 +988,8 @@ DeQuene(PQUENE pQuene, void * e, const int _size) {
 
 	pQuene->m_front = pTmp->m_nex;
 
+	pQuene->m_front->m_pre = NULL;
+
 	pQuene->m_cnt--;
 
 	__destroyQnode(pTmp);
