@@ -1218,7 +1218,7 @@ StrIndex(PSTRING pStr, PSTRING pPat, int pos) {
 	assert(pStr != NULL);
 	assert(pPat != NULL);
 
-	int i = pos, j = 0;
+	int i = pos, j = -1;
 
 	int * NEXT = (int *)malloc(pPat->m_length * sizeof(int));
 	if (!NEXT)
@@ -1228,7 +1228,7 @@ StrIndex(PSTRING pStr, PSTRING pPat, int pos) {
 
 	while (i < pStr->m_length && j < pPat->m_length) {
 
-		if (j == 0 || pStr->m_ch[i] == pStr->m_ch[j]) {
+		if (j == -1 || pStr->m_ch[i] == pStr->m_ch[j]) {
 
 			i++;
 			j++;
