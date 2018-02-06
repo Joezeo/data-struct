@@ -453,6 +453,14 @@ Status
 DestoryArray(PARRAY *);
 // 销毁数组，释放内存资源
 
+Status
+Value(PARRAY, const int, void *, ...);
+// 若各个下标不越界，e赋值为指定下标元素的值，并返回OK
+
+Status
+Assign(PARRAY, const int, void *, ...);
+// 若各个下标不越界，则将e的值赋给指定下标元素，并返回OK
+
 /*
 ------------------------------------------------------------------------------
 */

@@ -1288,6 +1288,10 @@ __getNext(int * next, char * pat, int len) {
 ----------------------------------- Array -----------------------------------
 */
 
+static int
+__locate(PARRAY, va_list);
+// 若va_list指示的各个下标合法，则求出该下标元素在数组中的映像地址off，否则返回-1
+
 /*
 +
 -              函数定义
@@ -1337,7 +1341,7 @@ InitArray(int size, int dim, ...) {
 
 		pArray->m_constants[i] = pArray->m_bounds[i + 1] * pArray->m_constants[i + 1];
 
-	}
+	} // 各个维界元素首地址偏转量
 
 	return pArray;
 
@@ -1367,6 +1371,77 @@ DestoryArray(PARRAY * ppArray) {
 
 }
 // 销毁数组，释放内存资源
+
+
+Status
+Value(PARRAY pArray, const int size, void * e, ...) {
+
+	assert(pArray != NULL);
+	assert(e != NULL);
+
+	va_list ap;
+	int result;
+
+	va_start(ap, e);
+
+	if ((result = __locate(pArray, ap)) == -1)
+		return ERROR;
+
+	va_end(ap);
+
+	memcpy(e, (char *)(pArray->m_base) + result, size);
+
+	return OK;
+
+}
+// 若各个下标不越界，e赋值为指定下标元素的值，并返回OK
+
+
+Status
+Assign(PARRAY pArray, const int size, void * e, ...) {
+
+	assert(pArray != NULL);
+	assert(e != NULL);
+
+	va_list ap;
+	int result;
+
+	va_start(ap, e);
+
+	if ((result = __locate(pArray, ap)) == -1)
+		return ERROR;
+
+	va_end(ap);
+
+	memcpy((char *)(pArray->m_base) + result, e, size);
+
+	return OK;
+
+}
+// 若各个下标不越界，则将e的值赋给指定下标元素，并返回OK
+
+
+static int
+__locate(PARRAY pArray, va_list ap) {
+
+	assert(pArray != NULL);
+
+	int off = 0;
+
+	for (int i = 0; i < pArray->m_dim; i++) {
+
+		int ind = va_arg(ap, int);
+		if (ind < 0 || ind >= pArray->m_bounds[i])
+			return -1;
+
+		off += pArray->m_constants[i] * ind;
+
+	}
+
+	return off;
+
+}
+// 若va_list指示的各个下标合法，则求出该下标元素在数组中的映像地址off，否则返回-1
 
 /*
 ------------------------------------------------------------------------------
