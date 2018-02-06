@@ -1389,7 +1389,7 @@ Value(PARRAY pArray, const int size, void * e, ...) {
 
 	va_end(ap);
 
-	memcpy(e, (char *)(pArray->m_base) + result, size);
+	memcpy(e, (char *)(pArray->m_base) + result * size, size);
 
 	return OK;
 
@@ -1413,7 +1413,7 @@ Assign(PARRAY pArray, const int size, void * e, ...) {
 
 	va_end(ap);
 
-	memcpy((char *)(pArray->m_base) + result, e, size);
+	memcpy((char *)(pArray->m_base) + result * size, e, size);
 
 	return OK;
 
