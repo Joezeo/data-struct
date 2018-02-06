@@ -1279,3 +1279,95 @@ __getNext(int * next, char * pat, int len) {
 /*
 ------------------------------------------------------------------------------
 */
+
+
+
+
+
+/*
+----------------------------------- Array -----------------------------------
+*/
+
+/*
++
+-              函数定义
++
+*/
+PARRAY
+InitArray(int size, int dim, ...) {
+
+	if (dim < 1)
+		return NULL;
+
+	int     elemCnt = 1;
+	va_list ap;
+	
+	PARRAY pArray = (PARRAY)malloc(sizeof(ARRAY));
+	if (!pArray)
+		exit(OVERFLOW);
+
+	pArray->m_dim = dim;
+
+	pArray->m_bounds = (int *)malloc(dim * sizeof(int));
+	if (!(pArray->m_bounds))
+		exit(OVERFLOW);
+
+	va_start(ap, dim);
+	for (int i = 0; i < dim; i++) {
+
+		pArray->m_bounds[i] = va_arg(ap, int);
+		if (pArray->m_bounds[i] < 0)
+			return NULL;
+
+		elemCnt *= pArray->m_bounds[i];
+
+	} // 储存数组各个维界长度，并计算数据元素总数
+	va_end(ap);
+
+	pArray->m_base = (void *)malloc(size * elemCnt);
+	if (!(pArray->m_base))
+		exit(OVERFLOW);
+
+	pArray->m_constants = (int *)malloc(dim * sizeof(int));
+	if (!(pArray->m_constants))
+		exit(OVERFLOW);
+
+	pArray->m_constants[dim - 1] = 1;
+	for (int i = dim - 2; i >= 0; i--) {
+
+		pArray->m_constants[i] = pArray->m_bounds[i + 1] * pArray->m_constants[i + 1];
+
+	}
+
+	return pArray;
+
+}
+// 若维数和各维长度合法，则构造相应的数组，将其返回，否则返回NULL
+
+
+Status
+DestoryArray(PARRAY * ppArray) {
+
+	assert(ppArray != NULL);
+
+	if ((*ppArray)->m_base)
+		free((*ppArray)->m_base);
+
+	if ((*ppArray)->m_bounds)
+		free((*ppArray)->m_bounds);
+
+	if ((*ppArray)->m_constants)
+		free((*ppArray)->m_constants);
+
+	free(*ppArray);
+
+	*ppArray = NULL;
+
+	return OK;
+
+}
+// 销毁数组，释放内存资源
+
+/*
+------------------------------------------------------------------------------
+*/
