@@ -1218,7 +1218,7 @@ StrIndex(PSTRING pStr, PSTRING pPat, int pos) {
 	assert(pStr != NULL);
 	assert(pPat != NULL);
 
-	int i = pos, j = -1;
+	int i = pos, j = 0;
 
 	int * NEXT = (int *)malloc(pPat->m_length * sizeof(int));
 	if (!NEXT)
@@ -1228,12 +1228,12 @@ StrIndex(PSTRING pStr, PSTRING pPat, int pos) {
 
 	while (i < pStr->m_length && j < pPat->m_length) {
 
-		if (j == -1 || pStr->m_ch[i] == pStr->m_ch[j]) {
+		if (j == -1 || pStr->m_ch[i] == pPat->m_ch[j]) {
 
 			i++;
 			j++;
 
-		} // 匹配成功，或者 j==0（及从模式串第一位开始匹配）
+		} // 匹配成功，或者 j=-1（及从模式串第一位开始匹配）
 		else {
 
 			j = NEXT[j];
@@ -1242,7 +1242,7 @@ StrIndex(PSTRING pStr, PSTRING pPat, int pos) {
 
 	}
 
-	if (j > pPat->m_length)
+	if (j >= pPat->m_length)
 		return i - pPat->m_length;
 
 	return 0;
@@ -1258,7 +1258,7 @@ __getNext(int * next, char * pat, int len) {
 	assert(pat != NULL);
 
 	int i = 0, j = -1;
-	next[0] = 0;
+	next[0] = -1;
 
 	while (i < len) {
 
