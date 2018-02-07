@@ -1480,7 +1480,7 @@ GetTriple(const void ** args, const int size, const int x, const int y) {
 	for(int i = 0; i < x; i++)
 		for (int j = 0; j < y; j++) {
 
-			if (memcmp(com, (void *)(*((char **)args + i * size) + j * size), size) != 0)
+			if (memcmp(com, (void *)(*((char **)args + i) + j * size), size) != 0)
 				cnt++;
 
 		}
@@ -1499,7 +1499,7 @@ GetTriple(const void ** args, const int size, const int x, const int y) {
 	for (int i = 0; i < x; i++)
 		for (int j = 0; j < y; j++) {
 
-			if (memcmp(com, (void *)(*((char **)args + i * size) + j * size), size) != 0) {
+			if (memcmp(com, (void *)(*((char **)args + i) + j * size), size) != 0) {
 
 				pTriple[cnt].i = i;
 				pTriple[cnt].j = j;
