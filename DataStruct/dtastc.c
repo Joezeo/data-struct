@@ -1505,7 +1505,7 @@ GetTriple(const void ** args, const int size, const int x, const int y) {
 				pTriple[cnt].j = j;
 
 				memcpy(pTriple[cnt].m_data, 
-					(void *)(*((char **)args + i * size) + j * size), 
+					(void *)(*((char **)args + i) + j * size), 
 					size);
  
 				cnt++;
