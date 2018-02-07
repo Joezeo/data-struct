@@ -465,6 +465,51 @@ Assign(PARRAY, const int, void *, ...);
 ------------------------------------------------------------------------------
 */
 
+
+
+
+
+/*
+----------------------------------- SMatrix -----------------------------------
+*/
+
+// 稀疏矩阵
+
+/*
++
+-              结构体定义
++
+*/
+typedef struct {
+
+	int    i, j;   // 非零元的行下标和列下标
+	void * m_data; // 非零元数据元素
+
+}TRIPLE, * PTRIPLE;
+
+typedef struct {
+
+	TRIPLE * m_pTriples;
+	int mu, nu, tu;     // 矩阵的行数，列数和非零元个数
+
+}SMATRIX, * PSMATRIX;
+
+
+/*
++
+-              函数前向声明
++
+*/
+
+PTRIPLE
+GetTriple(const void **, const int, const int, const int);
+// 从一个二维数组中取得非零元素三元组
+
+
+
+/*
+-------------------------------------------------------------------------------
+*/
 #ifdef __cplusplus
 }
 #endif

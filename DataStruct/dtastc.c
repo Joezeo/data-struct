@@ -1446,3 +1446,85 @@ __locate(PARRAY pArray, va_list ap) {
 /*
 ------------------------------------------------------------------------------
 */
+
+
+
+
+
+/*
+----------------------------------- SMatrix -----------------------------------
+*/
+
+// 稀疏矩阵
+
+/*
++
+-              函数定义
++
+*/
+
+PTRIPLE
+GetTriple(const void ** args, const int size, const int x, const int y) {
+
+	assert(args != NULL);
+
+	void * com = (void *)malloc(size);
+	if (!com)
+		exit(OVERFLOW);
+
+	memset(com, 0, size);
+
+	int cnt = 0;
+
+	// 判断非零元的个数
+	for(int i = 0; i < x; i++)
+		for (int j = 0; j < y; j++) {
+
+			if (memcmp(com, (void *)(*((char **)args + i * size) + j * size), size) != 0)
+				cnt++;
+
+		}
+
+	// 分配三元组数组
+	PTRIPLE pTriple = (PTRIPLE)malloc(cnt * sizeof(TRIPLE));
+	if (!pTriple)
+		exit(OVERFLOW);
+
+	for (int i = 0; i < cnt; i++)
+		pTriple[i].m_data = (void *)malloc(size);
+
+	cnt = 0;
+
+	//  三元数组赋值
+	for (int i = 0; i < x; i++)
+		for (int j = 0; j < y; j++) {
+
+			if (memcmp(com, (void *)(*((char **)args + i * size) + j * size), size) != 0) {
+
+				pTriple[cnt].i = i;
+				pTriple[cnt].j = j;
+
+				memcpy(pTriple[cnt].m_data, 
+					(void *)(*((char **)args + i * size) + j * size), 
+					size);
+ 
+				cnt++;
+
+			}
+				
+
+		}
+
+	free(com);
+	com = NULL;
+
+	return pTriple; // 返回三元数组
+
+}
+// 从一个二维数组中取得非零元素三元组
+
+
+
+/*
+-------------------------------------------------------------------------------
+*/
