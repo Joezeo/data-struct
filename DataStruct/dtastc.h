@@ -502,7 +502,7 @@ typedef struct {
 */
 
 PTRIPLE
-GetTriple(const void **, const int, const int, const int);
+GetTriple(void **, const int, const int, const int);
 // 从一个二维数组中取得非零元素三元组
 
 

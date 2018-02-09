@@ -1464,7 +1464,7 @@ __locate(PARRAY pArray, va_list ap) {
 */
 
 PTRIPLE
-GetTriple(const void ** args, const int size, const int x, const int y) {
+GetTriple(void ** args, const int size, const int x, const int y) {
 
 	assert(args != NULL);
 
@@ -1494,7 +1494,7 @@ GetTriple(const void ** args, const int size, const int x, const int y) {
 		pTriple[i].m_data = (void *)malloc(size);
 
 	cnt = 0;
-
+	
 	//  三元数组赋值
 	for (int i = 0; i < x; i++)
 		for (int j = 0; j < y; j++) {
