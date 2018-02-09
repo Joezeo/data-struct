@@ -505,8 +505,13 @@ PTRIPLE
 GetTriple(void **, const int, const int, const int);
 // 从一个二维数组中取得非零元素三元组
 
+PSMATRIX
+CreateSMatrix(const PTRIPLE, const int, const int, const int);
+// 创建稀疏矩阵
 
-
+Status
+DestroySMatrix(PSMATRIX *, const int);
+// 销毁稀疏矩阵，释放内存资源
 /*
 -------------------------------------------------------------------------------
 */

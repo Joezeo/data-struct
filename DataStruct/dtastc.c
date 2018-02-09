@@ -1523,8 +1523,50 @@ GetTriple(void ** args, const int size, const int x, const int y) {
 }
 // 从一个二维数组中取得非零元素三元组
 
+PSMATRIX
+CreateSMatrix(const PTRIPLE pTriple, const int row, const int col, const int cnt) {
+
+	assert(pTriple != NULL);
+
+	PSMATRIX pSmatrix = (PSMATRIX)malloc(sizeof(SMATRIX));
+	if (!pSmatrix)
+		exit(OVERFLOW);
+
+	pSmatrix->m_pTriples = pTriple;
+
+	pSmatrix->mu = row;
+	pSmatrix->nu = col;
+	pSmatrix->tu = cnt;
+
+	return pSmatrix;
+
+}
+// 创建稀疏矩阵
 
 
+Status
+DestroySMatrix(PSMATRIX * pSmatrix, const int size) {
+
+	assert(pSmatrix != NULL);
+
+
+	for (int i = 0; i < (*pSmatrix)->tu; i++) {
+
+		free(((*pSmatrix)->m_pTriples + i)->m_data);
+		((*pSmatrix)->m_pTriples + i)->m_data = NULL;
+
+	}
+
+	free((*pSmatrix)->m_pTriples);
+	(*pSmatrix)->m_pTriples = NULL;
+
+	free((*pSmatrix));
+	pSmatrix = NULL;
+
+	return OK;
+
+}
+// 销毁稀疏矩阵，释放内存资源
 /*
 -------------------------------------------------------------------------------
 */
