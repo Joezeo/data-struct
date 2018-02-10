@@ -1523,6 +1523,7 @@ GetTriple(void ** args, const int size, const int x, const int y) {
 }
 // 从一个二维数组中取得非零元素三元组
 
+
 PSMATRIX
 CreateSMatrix(const PTRIPLE pTriple, const int row, const int col, const int cnt) {
 
@@ -1545,7 +1546,7 @@ CreateSMatrix(const PTRIPLE pTriple, const int row, const int col, const int cnt
 
 
 Status
-DestroySMatrix(PSMATRIX * pSmatrix, const int size) {
+DestroySMatrix(PSMATRIX * pSmatrix) {
 
 	assert(pSmatrix != NULL);
 
