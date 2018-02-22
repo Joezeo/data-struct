@@ -1571,3 +1571,70 @@ DestroySMatrix(PSMATRIX * pSmatrix) {
 /*
 -------------------------------------------------------------------------------
 */
+
+
+
+
+
+
+/*
+----------------------------------- BinaryTree -----------------------------------
+*/
+
+// 二叉树
+
+static PTNODE
+__createTnode(void *, const int);
+// 根据参数生成一个二叉树结点
+
+
+/*
++
+-              函数定义
++
+*/
+
+PBITREE
+InitBiTree() {
+
+	PBITREE pBiTree = (PBITREE)malloc(sizeof(BITREE));
+	if (!pBiTree)
+		exit(OVERFLOW);
+
+	pBiTree->m_root = NULL;
+	pBiTree->m_cnt  = 0;
+
+	return pBiTree;
+
+}
+// 构造一个空二叉树
+
+
+static PTNODE
+__createTnode(void * e, const int size) {
+
+	assert(e != NULL);
+	assert(size >= 0);
+
+	PTNODE pTnode = (PTNODE)malloc(sizeof(TNODE));
+	if (!pTnode)
+		exit(OVERFLOW);
+
+	pTnode->m_data = (void *)malloc(size);
+	if (!(pTnode->m_data))
+		exit(OVERFLOW);
+
+	memcpy(pTnode->m_data, e, size);
+
+	pTnode->m_lChild = NULL;
+	pTnode->m_rChild = NULL;
+
+	return pTnode;
+
+}
+// 根据参数生成一个二叉树结点
+
+
+/*
+----------------------------------------------------------------------------------
+*/

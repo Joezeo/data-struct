@@ -515,6 +515,53 @@ DestroySMatrix(PSMATRIX *);
 /*
 -------------------------------------------------------------------------------
 */
+
+
+
+
+/*
+----------------------------------- BinaryTree -----------------------------------
+*/
+
+// 二叉树
+
+/*
++
+-              结构体定义
++
+*/
+
+typedef struct TNODE {
+
+	void * m_data;
+
+	struct TNODE * m_lChild; // 左孩子
+	struct TNODE * m_rChild; // 右孩子
+
+}TNODE, * PTNODE;
+
+typedef struct {
+
+	PTNODE m_root;
+
+	int   m_cnt;  // 二叉树结点数量
+
+}BITREE, * PBITREE;
+
+
+/*
++
+-              函数前向声明
++
+*/
+
+PBITREE
+InitBiTree();
+// 构造一个空二叉树
+
+/*
+----------------------------------------------------------------------------------
+*/
 #ifdef __cplusplus
 }
 #endif
